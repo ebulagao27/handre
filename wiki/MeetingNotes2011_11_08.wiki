@@ -18,4 +18,5 @@ This can be generalized into the equation:
 http://people.csail.mit.edu/culim/projects/machine_learning/equation.PNG
 
 http://people.csail.mit.edu/culim/projects/machine_learning/thetak.PNG models the character.
+
 Loss function measures how well `x' matches the model.
