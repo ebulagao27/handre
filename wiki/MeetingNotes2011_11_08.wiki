@@ -11,6 +11,7 @@ In summary, our project should aim to achieve the following:
     * Conditional Random Fields as a type of prior
     * Robust Learning
     * Semi-supervised Learning
+    * Transductive SVMs
 
 = Optimization Problem =
 This can be generalized into the equation:
