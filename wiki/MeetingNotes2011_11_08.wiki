@@ -1,0 +1,31 @@
+#summary Notes from meeting with Dahua (TA) on Tue, 8 Nov, 2011.
+#labels meeting
+
+= Goals =
+In summary, our project should aim to achieve the following:
+  * Perform segmentation of a string into its individual characters
+  * Perform recognization/inference of each character by using SVMs
+  * Incorporate some form a `prior' in order to improve the inference
+    * For example, dictionary matching of words
+  * Incorporate one or more of the following extensions
+    * Conditional Random Fields as a type of prior
+    * Robust Learning
+    * Semi-supervised Learning
+
+= Optimization Problem =
+This can be generalized into the equation:
+
+min \left\Vert \theta\right\Vert ^{2}+Loss(\theta_{k},x) 
+
+
+= Segmentation =
+
+Add your content here.
+
+
+= Extensions =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
