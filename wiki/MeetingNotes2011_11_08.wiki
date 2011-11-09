@@ -14,4 +14,5 @@ In summary, our project should aim to achieve the following:
 
 = Optimization Problem =
 This can be generalized into the equation:
+
 http://people.csail.mit.edu/culim/projects/machine_learning/equation.PNG
