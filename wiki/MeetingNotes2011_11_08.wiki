@@ -26,9 +26,11 @@ Loss function measures how well `x' matches the model.
 Equations used can be either SVM or Logisitic Regression.
 
 SVM:
+
 http://people.csail.mit.edu/culim/projects/machine_learning/equation2.PNG
 
 Logistic Regression:
+
 http://people.csail.mit.edu/culim/projects/machine_learning/equation3.PNG
 
 
