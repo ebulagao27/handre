@@ -13,6 +13,7 @@ In summary, our project should aim to achieve the following:
     * Semi-supervised Learning
     * Transductive SVMs
 
+
 = Optimization Problem =
 This can be generalized into the equation:
 
@@ -21,3 +22,16 @@ http://people.csail.mit.edu/culim/projects/machine_learning/equation.PNG
 http://people.csail.mit.edu/culim/projects/machine_learning/thetak.PNG models the character.
 
 Loss function measures how well `x' matches the model.
+
+Equations used can be either SVM or Logisitic Regression.
+
+SVM:
+http://people.csail.mit.edu/culim/projects/machine_learning/equation2.PNG
+
+Logistic Regression:
+http://people.csail.mit.edu/culim/projects/machine_learning/equation3.PNG
+
+
+= Segmentation =
+Perform some form of heuristic to segment the characters in a string.
+  * Fall-back strategy would be to hand-label the strings.
