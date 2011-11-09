@@ -37,3 +37,4 @@ http://people.csail.mit.edu/culim/projects/machine_learning/equation3.PNG
 = Segmentation =
 Perform some form of heuristic to segment the characters in a string.
   * Fall-back strategy would be to hand-label the strings.
+  * Otherwise, will be understaking *change-point detection*
