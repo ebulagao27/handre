@@ -94,6 +94,7 @@ for d in divs:
 			mi.putpixel((i, j-last_d), p);
 	
 	mi.save("result/line"+str(linec)+".png", "png");
+	os.system("./word.py "+str(linec));
 	
 	last_d = d;
 	linec += 1;

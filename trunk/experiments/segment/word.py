@@ -77,6 +77,8 @@ for i in range(0, len(passed)):
 	
 #nar = y_pixels;
 
+if (maxs == 0 ): exit();
+
 img = Image.new("RGB", imsize, "#FFFFFF");
 
 running = False;
@@ -102,7 +104,7 @@ for d in divs:
 			mi.putpixel((j-last_d,i), p);
 	
 	if ( d-last_d > 20):
-		mi.save("result/word"+str(linec)+".png", "png");
+		mi.save("result/word"+sys.argv[1]+"_"+str(linec)+".png", "png");
 		linec += 1;
 	
 	last_d = d;
