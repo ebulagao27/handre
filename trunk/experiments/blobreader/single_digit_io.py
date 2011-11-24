@@ -14,5 +14,5 @@ img0_matrix = matrix(img0_matrix_1d, (28,28))
 img0_array = array(img0_matrix)
 
 # save the image 
-imsave('mnist_training_digit_4_data_0.png', img0_array)
+imsave('./raw/mnist_training_digit_4_data_0.png', img0_array)
 
