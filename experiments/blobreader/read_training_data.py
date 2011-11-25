@@ -25,7 +25,7 @@ for i in range(0,10):
   
   for j in range(0, images.size[0]):
     img_matrix_1d = images[j,:]
-    img_matrix = matrix(img_matrix_1d, (28,28))
+    img_matrix = matrix(img_matrix_1d, (28,28)).trans()
     img_array = array(img_matrix)
     imsave('./raw/training/'+str(i)+'/'+str(j)+'.png', img_array)
 
