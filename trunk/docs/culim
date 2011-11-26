@@ -6,7 +6,7 @@ Thu, 24 Nov, 2011
  - Allow visualization of each image file by writing to disk. [X]
  - Perform simple 'rbf-kernel SVM training on MNIST. [ ] 
  - Perform classification prediction on MNIST test set. [ ]
- - Get database of alphabet characters.
+ - Get database of alphabet characters.[ ]
 
 Wed, 23 Nov, 2011
 -----------------
