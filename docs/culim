@@ -1,13 +1,13 @@
 To-do List
 ==========
 
-Wed, 23 Nov, 2011
------------------
- - Get python file that can read mnist database. [X]
-
 Thu, 24 Nov, 2011
 -----------------
  - Allow visualization of each image file by writing to disk. [X]
  - Perform simple 'rbf-kernel SVM training on MNIST. [ ] 
  - Perform classification prediction on MNIST test set. [ ]
  - Get database of alphabet characters.
+
+Wed, 23 Nov, 2011
+-----------------
+ - Get python file that can read mnist database. [X]
