@@ -30,7 +30,7 @@ classifier = svm.LinearSVC()
 
 # train the classifier
 sys.stdout.write('Training the classifier')
-classifier.fit(x_train, y_train)
+classifier.fit(x_train, train_labels)
 sys.stdout.write(' ... Done!\n')
 
 # test the classifier
