@@ -4,6 +4,7 @@ from numpy import array
 from cvxopt import matrix
 from scipy.misc import imsave
 from sklearn import svm, metrics
+from sklearn.cross_validation import LeaveOneOut
 
 # train the digits 0
 alphabets  = ['a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E']
@@ -41,3 +42,9 @@ sys.stdout.write(" ... Done!\n")
 # report
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
 print 'Confusion matrix:\n%s' % (metrics.confusion_matrix(y_test, prediction))
+
+# perform cross validation
+loocv = LeaveOneOut(n_samples)
+print loocv
+for train, test in loocv:
+  print train, test
