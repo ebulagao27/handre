@@ -54,7 +54,7 @@ for i in range(0, imsize[0]):
 
 
 passed = diff(x_pixels);
-#passed = diff(highpass(lowpass(y_pixels)));
+#passed = diff(highpass(lowpassx_pixels)));
 
 nar = [];
 window = [0,0,0];
@@ -69,10 +69,9 @@ for i in range(0, len(passed)):
 	wpos += 1;
 	s = 0;
 	for n in window: s += n;
-	s /= len(window);
+	#s /= len(window);
 
 	nar.append(s);
-#	print s;
 	if (s > maxs): maxs = s;
 	
 #nar = y_pixels;
@@ -84,7 +83,7 @@ img = Image.new("RGB", imsize, "#FFFFFF");
 running = False;
 divs = [];
 for i in range(0, len(nar)):
-	if ( nar[i]*1000/maxs < 15 ):
+	if ( nar[i]*1000/maxs < 7 ):
 		if running == False: divs.append(i);
 		running = True;
 	else: running = False;
@@ -96,23 +95,54 @@ img.save("result/sawords.png", "png");
 
 last_d = 0;
 linec = 0;
+
 for d in divs:
+	if ( d <= last_d ): continue;
+
 	mi = Image.new("RGB", (d-last_d, imsize[1]), "#FFFFFF");
 	for i in range(0, imsize[1]):
 		for j in range(last_d, d):
 			p = im.getpixel((j,i));
 			mi.putpixel((j-last_d,i), p);
 	
-	if ( d-last_d > 20):
-		mi.save("result/word"+sys.argv[1]+"_"+str(linec)+".png", "png");
-		linec += 1;
 	
-	last_d = d;
+	mid = imsize[1]/2;
+	nempty = False;
+	for j in range(0, d - last_d):
+		p0 = im.getpixel((j+last_d, mid))[0] < pix_thresh;
+		if ( p0 ):
+			nempty = True;
+
+	for i in range(1, imsize[1] - 1):
+		xsum = 0;
+		for j in range(0, d - last_d):
+			p0 = im.getpixel((j+last_d, i))[0] < pix_thresh;
+			if ( p0 ): xsum += 1;
+
+		if ( (xsum*100)/(d-last_d) > 70 ):
+			for j in range(0, d - last_d):
+				pa = im.getpixel((j+last_d, i-1))[0] < pix_thresh;
+				p0 = im.getpixel((j+last_d, i))[0] < pix_thresh;
+				pb = im.getpixel((j+last_d, i+1))[0] < pix_thresh;
+
+				if ( (not pa) or (not p0) or (not pb) ):
+					mi.putpixel((j,i), (255,255,255));
+	
+
+
+	if ( d-last_d > 10 and nempty ):
+		mi.save("result/word"+sys.argv[1]+"_"+str(linec)+".png", "png");
+
+	print "\t Word" + str(linec) + " completed!";
+	linec += 1;
+	
+	last_d = d+2;
 	for i in range(0, imsize[1]):
 		im.putpixel((d, i), (255,0,0));
 
 
-im.save("result/pp.png", "png");
+#im.save("result/pp.png", "png");
+im.save("result/line_"+sys.argv[1]+".png", "png");
 
 	
 
