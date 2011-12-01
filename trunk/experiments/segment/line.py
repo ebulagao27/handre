@@ -4,10 +4,10 @@ from PIL import Image;
 import glob, os;
 import sys;
 
-im = Image.open("page.png");
+im = Image.open("zpage.png");
 imsize = im.size;
 
-pix_thresh = 230;
+pix_thresh = 210;
 
 def lowpass(ar):
 	nar = [];
@@ -36,6 +36,18 @@ def diff(ar):
 		else: nar.append(2 * ar[i+1] + ar[i + 2]);
 	return nar;
 
+def fill_all(x,y,imx, rd):
+	if ( rd > 20 ): return;
+	sz = im.size;
+	if (x < 0 or y < 0 or x >= sz[0] or y >= sz[1]): return;
+
+	p = im.getpixel((x,y))[0] < pix_thresh;
+	if (not p): return;
+	else:
+		im.putpixel((x,y), (255,255,255));
+		fill_all(x, y+1, imx, rd+1);
+		fill_all(x+1, y, imx, rd+1);
+		fill_all(x-1, y, imx, rd+1);
 
 y_pixels = [];
 for i in range(0, imsize[1]):
@@ -50,12 +62,12 @@ passed = diff(y_pixels);
 #passed = diff(highpass(lowpass(y_pixels)));
 
 nar = [];
-window = [0,0,0,0];
+window = [0,0,0,0,0];
 wpos = 0;
 
 maxs = 0;
 for i in range(0, len(passed)):
-	sq = abs(passed[i]);# * passed[i];
+	sq = abs(passed[i])/2;# * abs(passed[i];
 #	nar.append(sq);
 	
 	window[wpos % len(window)] = sq;
@@ -86,16 +98,70 @@ for i in range(0, len(nar)):
 last_d = 0;
 linec = 0;
 for d in divs:
-	mi = Image.new("RGB", (imsize[0], d-last_d+5), "#FFFFFF");
+	mi = Image.new("RGB", (imsize[0], d-last_d+7+4), "#FFFFFF");
 	for i in range(0, imsize[0]):
-		for j in range(last_d, d+5):
+		for j in range(max(last_d-4,last_d), d+7):
 			if ( d+5 >= imsize[1] ): break;
 			p = im.getpixel((i,j));
-			mi.putpixel((i, j-last_d), p);
+
+			if ( p[0] < pix_thresh):
+				mi.putpixel((i, j-last_d), (0,0,0));
+
+	misize = mi.size;	
+
+	for y in range(0, misize[1]):
+		xtot = 0;
+		for x in range(0, misize[0]):
+			p = mi.getpixel((x,y));
+			if ( p[0] < pix_thresh ): xtot += 1;
+
+		if ( xtot*100/misize[0] > 60 ):
+			for i in range(0, misize[0]):
+				if ( y <= 0 or y >= misize[1] - 1 ):
+					mi.putpixel((i,y), (255,255,255));
+					continue;
+
+				pa = mi.getpixel((i,y-1));
+				pb = mi.getpixel((i,y+1));
+				if ( pa[0] >= pix_thresh or pb[0] >= pix_thresh):
+					mi.putpixel((i,y), (255,255,255));
+########################################3
+	for y in range(0, misize[1]):
+		xtot = 0;
+		for x in range(0, misize[0]):
+			p = mi.getpixel((x,y));
+			if ( p[0] < pix_thresh ): xtot += 1;
+
+		if ( xtot*100/misize[0] > 40 ):
+			for i in range(0, misize[0]):
+				if ( y <= 0 or y >= misize[1] - 1 ):
+					mi.putpixel((i,y), (255,255,255));
+					continue;
+
+				pa = mi.getpixel((i,y-1));
+				pb = mi.getpixel((i,y+1));
+				if ( pa[0] >= pix_thresh or pb[0] >= pix_thresh):
+					mi.putpixel((i,y), (255,255,255));
+############################################
+	for y in range(1, misize[1]-1):
+		for x in range(1, misize[0] - 1):
+			p0 = mi.getpixel((x,y))[0]<pix_thresh;
+			pa = mi.getpixel((x,y-1))[0]<pix_thresh;
+			pb = mi.getpixel((x,y+1))[0]<pix_thresh;
+			pl = mi.getpixel((x-1,y))[0]<pix_thresh;
+			pr = mi.getpixel((x+1,y))[0]<pix_thresh;
+			if ( pa + pb + pl + pr < 2 ): mi.putpixel((x,y),(255,255,255));
+
+	for x in range(0, imsize[0]):
+		fill_all(x,d,im, 0);
+
+
 	
+
 	mi.save("result/line"+str(linec)+".png", "png");
 	os.system("./word.py "+str(linec));
 	
+	print "Line " + str(linec) + " completed!";
 	last_d = d;
 	linec += 1;
 #	for i in range(0, imsize[0]):
