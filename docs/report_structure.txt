@@ -1,0 +1,42 @@
+Title: Handre: A Combination of Systems to Recogniz
+
+Section 1: Introduction
+
+Section 2: Document Segmentation 
+ - Alernate Approaches
+ - Time-Series Segmentation (Our Approach) 
+ 
+Section 3: Word Segmentation into Characters 
+ - Implicit Methods
+	- Supervised 
+		* Hand-labeled Training 
+	- Unsupervised
+		* Pixel Analysis (Contours)
+	- Mixture
+		* Pixel + Hand-labelling
+ - Explicit Methods
+
+Section 4: Character Recognition
+  - Training Data
+  - Approach 1: Multi-class SVM Classification
+		* Cross-Validation
+		* Optimal Tuning Parameters
+		* Test-set Performance (on Leslie's handwriting)
+  - Approach 2: K-means Clustering using Dynamic Time-Warping
+		* 2-D Dynamic Time Warping
+		* Feature-based Dynamic Time Warping
+		* Test-set Performance 
+
+Section 5: Analysis & Evaluation
+	- Documentation Segmentation Analysis\
+	- Word Segmentation Analysis
+	- Character Recognition Analysis
+
+Section 6: Conclusion + Future Work
+
+Bibliography
+
+Appendix
+  - Project Timeline and Division of Labor
+ 
+  
