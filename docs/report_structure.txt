@@ -27,7 +27,11 @@ Section 4: Character Recognition
 		* Feature-based Dynamic Time Warping
 		* Test-set Performance 
 
-Section 5: Analysis & Evaluation
+Section 5: Word Recognition
+  - Probabalistic Model Approach
+  - HMM Approach
+		
+Section 6: Analysis & Evaluation
 	- Documentation Segmentation Analysis\
 	- Word Segmentation Analysis
 	- Character Recognition Analysis
@@ -39,4 +43,4 @@ Bibliography
 Appendix
   - Project Timeline and Division of Labor
  
-  
+ 
