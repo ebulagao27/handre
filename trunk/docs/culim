@@ -1,6 +1,12 @@
 To-do List
 ==========
 
+Fri, 2 Dec 2011
+-----------------
+ * Testing Trained SVM Leslie's data
+ * Scoring a classification 
+ * HMM Approach to word recognition
+
 Satm 26 Nov, 2011
 -----------------
  - Get database of alphabet characters [ ]
