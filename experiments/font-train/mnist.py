@@ -20,7 +20,7 @@ def read(digits, path = "./../../data/"):
     img = array("B", fimg.read())
     fimg.close()
 
-    ind = [ k for k in xrange(size) if lbl[k] in digits ]
+    ind = [ k for k in xrange(size) if (lbl[k] in digits or digits == []) ]
     images =  matrix(0, (len(ind), rows*cols))
     labels = matrix(0, (len(ind), 1))
     for i in xrange(len(ind)):
