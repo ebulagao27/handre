@@ -5,6 +5,7 @@ import csv
 import sys
 import tools
 import numpy
+from numpy import array
 
 IMAGE_LOCATION_INDEX = 0
 LABEL_INDEX = 1
@@ -14,14 +15,14 @@ DEBUG_MODE = True
 def readCSV():
   
   # image data
-  images = []
-  
+  images = [] 
   # label data
   labels = []
 
   # read the actual csv file
   data = csv.reader(open('data.csv', 'rb'), delimiter=' ', quotechar='|')
   
+  i = 0
   for row in data:
     image_location = row[IMAGE_LOCATION_INDEX]
     
@@ -69,10 +70,15 @@ def readCSV():
     #print 'np_image_array=' + str(np_image_array)
     
     # add image to array
-    images.append(np_image_array)
-    labels.append(row[LABEL_INDEX])  
     
-    return images, labels
+    images.append(array(numpy.asarray(image_array)))
+    labels.append(int(ord(row[LABEL_INDEX])))  
+    
+    i = i+1
+    print 'len(images)=' + str(len(images))
+    print 'label=' + str(ord(row[LABEL_INDEX]))
+
+  return images, numpy.array(labels)
 images, labels = readCSV()
 '''
 def mkImage (f, s, r):
