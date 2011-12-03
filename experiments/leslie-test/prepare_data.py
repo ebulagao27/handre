@@ -20,7 +20,7 @@ def readCSV():
   labels = []
 
   # read the actual csv file
-  data = csv.reader(open('data.csv', 'rb'), delimiter=' ', quotechar='|')
+  data = csv.reader(open('../../data/leslie/data.csv', 'rb'), delimiter=' ', quotechar='|')
   
   i = 0
   for row in data:
