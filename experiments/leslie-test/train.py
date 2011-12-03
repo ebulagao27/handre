@@ -8,7 +8,7 @@ from sklearn.cross_validation import LeaveOneOut
 import prepare_data
 import scipy
 # train the digits 0
-alphabets  = ['a', 'b', 'A', 'B']
+alphabets  = []
 
 alphabets_ord = map(ord, alphabets)
 images, labels = mnist.read(alphabets_ord)
@@ -57,6 +57,11 @@ sys.stdout.write(' ... Done!\n')
 sys.stdout.write("Performing prediction on test set")
 prediction = classifier.predict(x_test);
 sys.stdout.write(" ... Done!\n")
+
+print '--------------------------------------'
+print 'actual       =' + str(map(chr,map(int,y_test)))
+print 'prediction   =' + str(map(chr,map(int,prediction)))
+print '--------------------------------------'
 
 predict_prob = classifier.predict_proba(x_test)
 print predict_prob
