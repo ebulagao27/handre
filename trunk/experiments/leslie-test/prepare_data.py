@@ -6,7 +6,7 @@ import sys
 import tools
 import numpy
 from numpy import array
-
+import scipy
 IMAGE_LOCATION_INDEX = 0
 LABEL_INDEX = 1
 
@@ -36,7 +36,25 @@ def readCSV():
     image.save(image_name + '.inverted.png')
     
     width, height = image.size
+    
+    # remove borders
+    bbox = image.getbbox()
+    print bbox
+    
+    threshold = 3
+    left = max(bbox[0]-threshold, 0) 
+    top = max(bbox[1]-threshold, 0)
+    right = min(bbox[2]+threshold,width)
+    bottom = min(bbox[3]+threshold,height)
 
+
+    #bbox2 = (bbox[0]-threshold, bbox[1]-threshold, bbox[2]+threshold,  bbox[3]+threshold)
+    bbox2 = (left, top, right, bottom)
+    image = image.crop(bbox2)
+    print bbox2
+    image.save('img' + str(i) + '_noborder.png')
+    
+    width, height = image.size
     #print image.size
 
     # crop image
@@ -58,15 +76,15 @@ def readCSV():
 
     image_array = []
 
-    for x in range(w):
-      for y in range(h):
+    for y in range(h):
+      for x in range(w):
         cpixel = pixels[x, y]
         image_array.append(cpixel[0])
 
     #print 'image_array=' + str(image_array)
     
     np_image_array = numpy.asarray(image_array).reshape((w,h))
-    
+    scipy.misc.imsave('np_image_array' + str(i) + '.png', np_image_array)    
     #print 'np_image_array=' + str(np_image_array)
     
     # add image to array
