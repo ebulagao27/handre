@@ -10,7 +10,7 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.svm import SVC, LinearSVC
 
 # train the digits 0
-alphabets  = ['a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E']
+alphabets  = [] # ['a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E']
 alphabets_ord = map(ord, alphabets)
 images, labels = mnist.read(alphabets_ord)
 images = array(images)

@@ -7,7 +7,8 @@ from sklearn import svm, metrics
 from sklearn.cross_validation import LeaveOneOut
 
 # train the digits 0
-alphabets  = ['a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E']
+alphabets  = []
+
 alphabets_ord = map(ord, alphabets)
 images, labels = mnist.read(alphabets_ord)
 images = array(images)
@@ -27,7 +28,7 @@ y_test = labels[n_samples/2:]
 sys.stdout.write(' ... Done!\n')
 
 # create classifier
-classifier = svm.LinearSVC()
+classifier = svm.SVC(C=1.0, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 
 # train the classifier
 sys.stdout.write('Training the classifier')
@@ -39,12 +40,10 @@ sys.stdout.write("Performing prediction on test set")
 prediction = classifier.predict(x_test);
 sys.stdout.write(" ... Done!\n")
 
+predict_prob = classifier.predict_proba(x_test)
+print predict_prob
+
 # report
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
 print 'Confusion matrix:\n%s' % (metrics.confusion_matrix(y_test, prediction))
 
-# perform cross validation
-loocv = LeaveOneOut(n_samples)
-print loocv
-for train, test in loocv:
-  print train, test
