@@ -29,7 +29,10 @@ def readCSV():
     sys.stdout.write('Reading: ' + image_location + ' ... ')
     image = Image.open(image_location)
     sys.stdout.write('Done!\n')
-
+    
+    if image.mode != 'RGB':
+      image = image.convert('RGB')
+    print image.format, image.mode
     # get the image name with the extension (.png)
     image_name = image_location[:-4]
     image = ImageOps.invert(image)
@@ -54,6 +57,18 @@ def readCSV():
     print bbox2
     image.save('img' + str(i) + '_noborder.png')
     
+    thumbnail_image = image.copy()
+    thumbnail_image.thumbnail((28,28))
+    # thumbnail_image.save('img' + str(i) + '_thumbnail.png')
+    
+    w, h = thumbnail_image.size
+    
+    image_container = Image.new('RGB', (28,28), 'black')
+    image_container.paste(thumbnail_image, (max(0,(28-w)/2),max(0,(28-h)/2)))
+    thumbnail_image = image_container
+    thumbnail_image.save('img' + str(i) + '_thumbnail.png')
+
+
     width, height = image.size
     #print image.size
 
@@ -71,9 +86,10 @@ def readCSV():
 
     # convert to array
     #image_array = numpy.asarray(cropped_image)
-    pixels = cropped_image.load()
-    w, h = cropped_image.size
-
+    
+    pixels = thumbnail_image.load() # cropped_image.load()
+    w, h = thumbnail_image.size # cropped_image.size
+    print w, h
     image_array = []
 
     for y in range(h):
