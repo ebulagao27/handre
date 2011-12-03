@@ -4,6 +4,7 @@ import struct
 import csv
 import sys
 import tools
+import numpy
 
 IMAGE_LOCATION_INDEX = 0
 LABEL_INDEX = 1
@@ -35,19 +36,44 @@ def readCSV():
     
     width, height = image.size
 
-    print image.size
+    #print image.size
 
     # crop image
     bounds = tools.cropbbox(width, height, 28, 28)
-    print bounds
+    #print bounds
 
     cropped_image = image.crop(bounds)
+    # cropped_image.save(image_name + '.normalized.png')
+    cropped_image = cropped_image.resize((28, 28))
+    cropped_image.convert('1')
     cropped_image.save(image_name + '.normalized.png')
+    
+    #print 'cropped_image.size=' + str(cropped_image.size)
 
+    # convert to array
+    #image_array = numpy.asarray(cropped_image)
+    pixels = cropped_image.load()
+    w, h = cropped_image.size
+
+    image_array = []
+
+    for x in range(w):
+      for y in range(h):
+        cpixel = pixels[x, y]
+        image_array.append(cpixel[0])
+
+    #print 'image_array=' + str(image_array)
+    
+    np_image_array = numpy.asarray(image_array).reshape((w,h))
+    
+    #print 'np_image_array=' + str(np_image_array)
+    
     # add image to array
-    images.append(cropped_image)
-
-readCSV()
+    images.append(np_image_array)
+    labels.append(row[LABEL_INDEX])  
+    
+    return images, labels
+images, labels = readCSV()
 '''
 def mkImage (f, s, r):
 	img = Image.new("RGB", (28,28), "#FFFFFF");
