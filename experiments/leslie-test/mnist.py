@@ -2,13 +2,13 @@ import os, struct
 from array import array
 from cvxopt.base import matrix
 
-def read(digits, path = "./../../data/"):
+def read(digits, path = "./../../data/", data="alphabets-font-images.idx", label="alphabets-font-labels.idx"):
     """
     Python function for importing the MNIST data set.
     """
 
-    fname_img = os.path.join(path, 'alphabets-font-images.idx')
-    fname_lbl = os.path.join(path, 'alphabets-font-labels.idx')
+    fname_img = os.path.join(path, data)#'alphabets-font-images.idx')
+    fname_lbl = os.path.join(path, label)#'alphabets-font-labels.idx')
 
     flbl = open(fname_lbl, 'rb')
     magic_nr, size = struct.unpack(">II", flbl.read(8))

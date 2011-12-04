@@ -7,11 +7,12 @@ from sklearn import svm, metrics
 from sklearn.cross_validation import LeaveOneOut
 import prepare_data
 import scipy
+import os
 # train the digits 0
-alphabets  = []
+alphabets  = ['a', 'd', 'e', 'c', 'u', 's', 'o', 'f', 't']
 
 alphabets_ord = map(ord, alphabets)
-images, labels = mnist.read(alphabets_ord)
+images, labels = mnist.read(alphabets_ord, './../../data/', 'font-christopher.idx', 'label-christopher.idx')
 images = array(images)
 labels = array(labels).reshape(1, len(labels))[0]
 n_samples = len(images)
@@ -23,9 +24,13 @@ y_train = labels[:n_samples]
 #print y_train
 sys.stdout.write(' ... Done!\n')
 
+if not os.path.exists("./img"):
+  os.makedirs("./img")
+
+
 i=0
 for data in x_train:
-  scipy.misc.imsave('x_train' + str(i) + '.png', data.reshape(28,28))
+  scipy.misc.imsave('./img/x_train' + str(i) + '.png', data.reshape(28,28))
   i=i+1
 
 # read the test data and labels
@@ -43,7 +48,7 @@ sys.stdout.write(' ... Done!\n')
 
 i=0
 for data in x_test:
-  scipy.misc.imsave('x_test' + str(i) + '.png', data.reshape(28,28))
+  scipy.misc.imsave('./img/x_test' + str(i) + '.png', data.reshape(28,28))
   i = i +1
 # create classifier
 classifier = svm.SVC(C=1.0, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
