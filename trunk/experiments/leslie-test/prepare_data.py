@@ -7,6 +7,8 @@ import tools
 import numpy
 from numpy import array
 import scipy
+import os
+
 IMAGE_LOCATION_INDEX = 0
 LABEL_INDEX = 1
 
@@ -22,6 +24,11 @@ def readCSV():
   # read the actual csv file
   data = csv.reader(open('../../data/leslie/data.csv', 'rb'), delimiter=' ', quotechar='|')
   
+  # create tmp
+  if not os.path.exists('./tmp'):
+    os.makedirs('./tmp')
+
+
   i = 0
   for row in data:
     image_location = row[IMAGE_LOCATION_INDEX]
@@ -36,8 +43,9 @@ def readCSV():
     # get the image name with the extension (.png)
     image_name = image_location[:-4]
     image = ImageOps.invert(image)
-    image.save(image_name + '.inverted.png')
-    
+    #image.save(image_name + '.inverted.png')
+    image.save('./tmp/img' + str(i) + '_inverted.png')
+
     width, height = image.size
     
     # remove borders
@@ -55,7 +63,7 @@ def readCSV():
     bbox2 = (left, top, right, bottom)
     image = image.crop(bbox2)
     print bbox2
-    image.save('img' + str(i) + '_noborder.png')
+    image.save('./tmp/img' + str(i) + '_noborder.png')
     
     thumbnail_image = image.copy()
     thumbnail_image.thumbnail((28,28))
@@ -66,7 +74,7 @@ def readCSV():
     image_container = Image.new('RGB', (28,28), 'black')
     image_container.paste(thumbnail_image, (max(0,(28-w)/2),max(0,(28-h)/2)))
     thumbnail_image = image_container
-    thumbnail_image.save('img' + str(i) + '_thumbnail.png')
+    thumbnail_image.save('./tmp/img' + str(i) + '_thumbnail.png')
 
 
     width, height = image.size
@@ -80,8 +88,8 @@ def readCSV():
     # cropped_image.save(image_name + '.normalized.png')
     cropped_image = cropped_image.resize((28, 28))
     cropped_image.convert('1')
-    cropped_image.save(image_name + '.normalized.png')
-    
+    #cropped_image.save(image_name + '.normalized.png')
+    cropped_image.save('./tmp/img' + str(i) + '_normalized.png')
     #print 'cropped_image.size=' + str(cropped_image.size)
 
     # convert to array
@@ -100,7 +108,7 @@ def readCSV():
     #print 'image_array=' + str(image_array)
     
     np_image_array = numpy.asarray(image_array).reshape((w,h))
-    scipy.misc.imsave('np_image_array' + str(i) + '.png', np_image_array)    
+    scipy.misc.imsave('./tmp/np_image_array' + str(i) + '.png', np_image_array)    
     #print 'np_image_array=' + str(np_image_array)
     
     # add image to array
