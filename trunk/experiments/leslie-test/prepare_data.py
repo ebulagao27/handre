@@ -52,7 +52,7 @@ def readCSV():
     bbox = image.getbbox()
     print bbox
     
-    threshold = 3
+    threshold = 1
     left = max(bbox[0]-threshold, 0) 
     top = max(bbox[1]-threshold, 0)
     right = min(bbox[2]+threshold,width)

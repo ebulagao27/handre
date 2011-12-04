@@ -68,7 +68,7 @@ def mkImage (f, s, r):
 	#img.save("A.png", "png");
 	#draw.text((10,10), "hi", font=font);
 
-fontlist = ["dakota.ttf"];
+fontlist = ["throwhands.ttf"];
 #fontlist = ["christopher.ttf","star.ttf", "angelina.ttf", "note_this.ttf", "handsean.ttf", "harrison.ttf"];
 #charlist = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 charlist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
