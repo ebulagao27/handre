@@ -13,11 +13,12 @@ import os
 import segmentword
 import numpy
 import math
+
 def getSVMList(image):
 
   # get the individual characters
   images = getSplitImageArray(image)
-  
+  #print len(images) 
   # get the classifier
   clf = joblib.load('classy.pkl')
   
@@ -68,8 +69,9 @@ def getSVMList(image):
       candidates.append(row[i][0])
     return_table.append([candidates])
 
-  print return_table
- # print big_table[0]
+  # print return_table
+  return return_table
+  # print big_table[0]
   
 
 def getSplitImageArray(image):
@@ -81,7 +83,7 @@ def getSplitImageArray(image):
   i = 0
 
   # given the image object, we get an array of each individual character image
-  characterImagesArray = segmentword.getCharImages(wordImage)
+  characterImagesArray = segmentword.getCharImages(image)
   
   for characterImage in characterImagesArray:
     
@@ -137,12 +139,19 @@ def getSplitImageArray(image):
     
     # increment counter
     i += 1
+    #print 'i='+str(i)
 
   return globalImageArray
+
+def getDTWList(image):
+  return getSVMList(image)
 
 # pick word
 wordImage = Image.open("multivariate.png")
 
 # run
-getSVMList(wordImage)
+svmlist = getSVMList(wordImage.copy())
+dtwlist = getSVMList(wordImage.copy())
 
+print 'svmlist='+str(svmlist)
+print 'dtwlist='+str(dtwlist)
