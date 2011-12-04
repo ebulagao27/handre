@@ -5,27 +5,29 @@ from cvxopt import matrix
 from scipy.misc import imsave
 from sklearn import svm, metrics
 from sklearn.cross_validation import LeaveOneOut
+from sklearn.externals import joblib
 import prepare_data
 import scipy
 from numpy import vstack
 from numpy import append
 import os
 # train the digits 0
-alphabets  = ['a', 'd', 'e', 'c', 'u', 's', 'o', 'f', 't']
+alphabets  = [] #'a', 'd', 'e', 'c', 'u', 's', 'o', 'f', 't']
 alphabets_ord = map(ord, alphabets)
-
-images, labels = mnist.read(alphabets_ord)
+ignoreList = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
+ignoreList = map(ord, ignoreList)
+images, labels = mnist.read(alphabets_ord, ignoreList = ignoreList)
 
 images = array(images)
 labels = array(labels).reshape(1, len(labels))[0]
 
-fonts = ['comicsans', 'dakota', 'showhands']
+fonts = ['comicsans', 'dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion' ]
 for font in fonts:
-  font_images, font_labels = mnist.read(alphabets_ord, './../../data/', font + '_img.idx', font + '_label.idx')
+  font_images, font_labels = mnist.read(alphabets_ord, './../../data/', font + '_img.idx', font + '_label.idx', ignoreList=ignoreList)
   font_images = array(font_images)
   font_labels = array(font_labels).reshape(1, len(font_labels))[0]
   
-  vstack((images, font_images))
+  images = vstack((images, font_images))
   labels = append(labels, font_labels)
 
 '''
@@ -63,11 +65,13 @@ sys.stdout.write(' ... Done!\n')
 if not os.path.exists("./img"):
   os.makedirs("./img")
 
+printTrain = False
 
-i=0
-for data in x_train:
-  scipy.misc.imsave('./img/x_train' + str(i) + '.png', data.reshape(28,28))
-  i=i+1
+if printTrain:
+  i=0
+  for data in x_train:
+    scipy.misc.imsave('./img/x_train' + str(i) + '.png', data.reshape(28,28))
+    i=i+1
 
 # read the test data and labels
 sys.stdout.write('Reading in testing data and labels')
@@ -87,7 +91,7 @@ for data in x_test:
   scipy.misc.imsave('./img/x_test' + str(i) + '.png', data.reshape(28,28))
   i = i +1
 # create classifier
-classifier = svm.SVC(C=1000, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
+classifier = svm.SVC(C=1, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 #classifier = svm.LinearSVC() #SVC(C=100, kernel='rbf', degree=3, gamma=1e-3, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 
 # train the classifier
@@ -112,3 +116,4 @@ print predict_prob
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
 print 'Confusion matrix:\n%s' % (metrics.confusion_matrix(y_test, prediction))
 
+joblib.dump(classifier, 'classy.pkl')

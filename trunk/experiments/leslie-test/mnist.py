@@ -2,7 +2,7 @@ import os, struct
 from array import array
 from cvxopt.base import matrix
 
-def read(digits, path = "./../../data/", data="alphabets-font-images.idx", label="alphabets-font-labels.idx"):
+def read(digits, path = "./../../data/", data="alphabets-font-images.idx", label="alphabets-font-labels.idx", ignoreList = []):
     """
     Python function for importing the MNIST data set.
     """
@@ -20,7 +20,11 @@ def read(digits, path = "./../../data/", data="alphabets-font-images.idx", label
     img = array("B", fimg.read())
     fimg.close()
 
-    ind = [ k for k in xrange(size) if (lbl[k] in digits or digits == []) ]
+    #print '(^_^)'
+    #print 'ignoreList='+str(ignoreList)
+    #print ('----')
+    
+    ind = [ k for k in xrange(size) if ((not lbl[k] in ignoreList) and  (lbl[k] in digits or digits == [])) ]
     images =  matrix(0, (len(ind), rows*cols))
     labels = matrix(0, (len(ind), 1))
     for i in xrange(len(ind)):
