@@ -11,6 +11,7 @@ def matprint(a):
 		for j in i:
 			if j > 190: print 1,
 			else: print 0,
+	print "";
 
 def dtw(a, b, w):
 	al = len(a);
@@ -90,7 +91,7 @@ def mddtw(a, b, fn, w):
 				l2 = [];
 				for x in range(0,asx): l1.append(a[ai][x]);
 				for x in range(0,bsx): l2.append(b[bi][x]);
-				m[ai].append(dtw(l1,l2, max(8, abs(len(l1)-len(l2))+4)));
+				m[ai].append(dtw(l1,l2, max(w, abs(len(l1)-len(l2))+4)));
 
 
 			elif (fn == 1):
@@ -114,6 +115,70 @@ def mddtw(a, b, fn, w):
 				l2 = [];
 				for x in range(0,asx): l1.append(a[ai][x]);
 				for x in range(0,bsx): l2.append(b[bi][x]);
+				m[ai].append(scalematch(l1,l2));
+
+
+			else: m[ai].append(0);
+	
+#	for ai in range(1, asy):
+#		m[ai][0] = 999999999;
+#	for bi in range(1, bsy):
+#		m[0][bi] = 999999999;
+
+	D[0][0] = m[0][0];
+
+
+	for ai in range(1, asy):
+		for bi in range(max(1,ai-w), min(bsy, ai+w )):
+			D[ai][bi] = m[ai][bi] + min(
+			D[ai-1][bi],D[ai][bi-1],D[ai-1][bi-1]
+			);
+	
+	#matprint(D);
+	return D[asy-1][bsy-1];
+
+def mddtwv(a, b, fn, w):
+	asx = len(a);
+	bsx = len(b);
+	asy = len(a[0]);
+	bsy = len(b[0]);
+
+	m = [];
+	D = [];
+	for ai in range(0, asy):
+		m.append([]);
+		D.append([]);
+		for bi in range(0, bsy):
+			D[ai].append(9999999999);
+			if (fn == 0):
+				l1 = [];
+				l2 = [];
+				for x in range(0,asx): l1.append(a[x][ai]);
+				for x in range(0,bsx): l2.append(b[x][bi]);
+				m[ai].append(dtw(l1,l2, max(w, abs(len(l1)-len(l2))+4)));
+
+
+			elif (fn == 1):
+				
+				sum = 0;
+				for x in range(0, max(asx,bsx)):
+					bx = x;
+					ax = x;
+					if ( bsx < asx ): bx = x * bsx / asx;
+					elif ( bsx > asx ): ax = x * asx / bsx;
+					
+					if a[ax][ai] != b[bx][bi]: 
+						if b[bx][bi] > a[ax][ai]:
+							sum += 8;
+						else: sum += 8;
+
+				m[ai].append(sum);
+			
+			elif (fn == 2):
+				l1 = [];
+				l2 = [];
+				for x in range(0,asx): l1.append(a[x][ai]);
+				for x in range(0,bsx): l2.append(b[x][bi]);
 				m[ai].append(scalematch(l1,l2));
 
 
@@ -179,8 +244,8 @@ def analyze_fontfeature(data, idx, label):
 #############################################################
 ## Load IDX files
 
-fi = open("img.idx", "rb");
-fl = open("label.idx", "rb");
+fi = open("comicsans_img.idx", "rb");
+fl = open("comicsans_label.idx", "rb");
 
 if (not fi or not fl): exit();
 
@@ -323,6 +388,8 @@ def getDTWList(mg, getCount = 3):
 			yd = (dtw(ys,yseries[id],max(abs(len(ys)-len(yseries[id])),8))+1);
 			fl.append((chr(labels[id]), id,xd+yd,xd,yd));
 		fl.sort(key=lambda a: a[2]);
+		
+#		for f in fl: print f;
 
 		#matprint(da[fl[0][1]]);
 		#print xseries[fl[0][1]]
@@ -334,6 +401,9 @@ def getDTWList(mg, getCount = 3):
 		maxdt1 = 0;
 		maxdt2 = 0;
 		maxdt3 = 0;
+		maxdt4 = 0;
+		maxdt5 = 0;
+		maxdt6 = 0;
 		el = [];
 		printcount = 0;
 		for i in fl:
@@ -348,16 +418,22 @@ def getDTWList(mg, getCount = 3):
 				dt1 = mddtw(sm, da[i[1]], 0, 8);
 				dt2 = mddtw(sm, da[i[1]], 1, 8);
 				dt3 = mddtw(sm, da[i[1]], 2, 8);
+				dt4 = mddtw(sm, da[i[1]], 0, 8);
+				dt5 = mddtw(sm, da[i[1]], 1, 8);
+				dt6 = 0;#mddtw(sm, da[i[1]], 2, 8);
 
 				if ( dt1 > maxdt1 ): maxdt1 = dt1;
 				if ( dt2 > maxdt2 ): maxdt2 = dt2;
 				if ( dt3 > maxdt3 ): maxdt3 = dt3;
+				if ( dt4 > maxdt4 ): maxdt4 = dt4;
+				if ( dt5 > maxdt5 ): maxdt5 = dt5;
+				if ( dt6 > maxdt6 ): maxdt6 = dt6;
 				#print "\t"+str(mddtw(sm, da[i[1]], 0, 100)),
 				#print "\t"+str(mddtw(sm, da[i[1]], 1, 100)),
 				#print "\t"+str(mddtw(sm, da[i[1]], 2, 100));
-				el.append((i[0], dt1, dt2, dt3));
+				el.append((i[0], dt1, dt2, dt3, dt4, dt5, dt6));
 				printcount += 1;
-				if ( printcount > 15 ): break;
+				if ( printcount > 10 ): break;
 		
 
 		#print "";
@@ -366,9 +442,13 @@ def getDTWList(mg, getCount = 3):
 			dt1 = 1.0*e[1]/maxdt1;
 			dt2 = 1.0*e[2]/maxdt2;
 			dt3 = 1.0*e[3]/maxdt3;
-			dtd = math.pow(dt1, 2) + math.pow(dt2, 2) + math.pow(dt3,2);
-			if ( dt1 < 0.9 and dt2 < 0.9 and dt3 < 0.9 ):
-				nel.append((e[0], dtd, dt1, dt2, dt3));
+			dt4 = 1.0*e[4]/maxdt4;
+			dt5 = 1.0*e[5]/maxdt5;
+			if (maxdt6 > 0): dt6 = 1.0*e[6]/maxdt6;
+			dtd = math.pow(dt1, 2) + math.pow(dt4, 2);# + math.pow(dt3,2);
+			dtd += math.pow(dt2, 4) + math.pow(dt3, 4) + math.pow(dt5,4);
+#			if ( dt1 < 0.9 and dt2 < 0.9 and dt3 < 0.9 ):
+			nel.append((e[0], dtd, dt1, dt2, dt3, dt4, dt5, dt6));
 #				if (len(nel) == 0 ):
 #					nel.append((e[0], dtd, dt1, dt2, dt3));
 #				elif (len(nel) == 1):
@@ -383,13 +463,15 @@ def getDTWList(mg, getCount = 3):
 		
 		posc = [];
 		for e in nel:
-			#print e;
+			print e;
 			if ( len(posc) < getCount ):
 				posc.append(e[0]);
 		guessstring.append(posc);
 		charidx += 1;
+		print "";
 
 	return guessstring;
+
 
 
 		
@@ -402,10 +484,10 @@ def getDTWList(mg, getCount = 3):
 #mg = Image.open("helloworld4.png");	
 #mg = Image.open("multivariate.png");	
 #mg = Image.open("finitely.png");	
-#mg = Image.open("Kernels.png");	
-#if (len( sys.argv) > 1 ):
-#	mg = Image.open(sys.argv[1]);
+mg = Image.open("Kernels.png");	
+if (len( sys.argv) > 1 ):
+	mg = Image.open(sys.argv[1]);
 
-#res = getDTWList(mg);
-#print res;
+res = getDTWList(mg);
+print res;
 
