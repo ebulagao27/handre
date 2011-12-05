@@ -21,7 +21,7 @@ images, labels = mnist.read(alphabets_ord, ignoreList = ignoreList)
 images = array(images)
 labels = array(labels).reshape(1, len(labels))[0]
 
-fonts = ['comicsans', 'dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion', 'daniel' ]
+fonts = ['nothingyoucoulddo', 'comicsans', 'dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion', 'daniel' ]
 for font in fonts:
   font_images, font_labels = mnist.read(alphabets_ord, './../../data/', font + '_img.idx', font + '_label.idx', ignoreList=ignoreList)
   font_images = array(font_images)
