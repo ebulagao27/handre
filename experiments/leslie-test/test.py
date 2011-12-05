@@ -155,3 +155,14 @@ dtwlist = getSVMList(wordImage.copy())
 
 print 'svmlist='+str(svmlist)
 print 'dtwlist='+str(dtwlist)
+
+combined_list = []
+
+if len(svmlist) == len(dtwlist)
+  for i in range(len(svmlist))
+    # for each char in the word
+    svm_candidates = svmlist[i]
+    dtw_candidates = dtwlist[i]
+    intersection_candidates = [filter(lambda x: x in svm_candidates, dtw_candidates)]
+    print intersection_candidates
+
