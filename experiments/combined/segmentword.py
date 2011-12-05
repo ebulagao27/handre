@@ -49,7 +49,7 @@ def getCharImages(image, imageName = 'segmented'):
   startPixel = 0
   left = 0
   w, h = img.size
-  print img.mode
+  #print img.mode
   if img.mode != 'RGB':
     img = img.convert('RGB')
     #print img.mode

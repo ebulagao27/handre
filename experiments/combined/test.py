@@ -157,7 +157,7 @@ wordImage = Image.open("data.png")
 
 # run
 svmlist = getSVMList(wordImage.copy())
-dtwlist = getSVMList(wordImage.copy())#featuredtw.getDTWList(wordImage.copy())
+dtwlist = featuredtw.getDTWList(wordImage.copy())
 
 dtwlist.reverse()
 print 'svmlist='+str(svmlist)
