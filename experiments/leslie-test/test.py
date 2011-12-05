@@ -13,6 +13,7 @@ import os
 import segmentword
 import numpy
 import math
+from itertools import product
 
 def getSVMList(image):
 
@@ -65,7 +66,7 @@ def getSVMList(image):
   for row in big_table:
     candidates = []
     row.sort(key=lambda r: r[1], reverse=True)
-    for i in range(3):
+    for i in range(2):
       candidates.append(row[i][0])
     return_table.append([candidates])
 
@@ -146,6 +147,10 @@ def getSplitImageArray(image):
 def getDTWList(image):
   return getSVMList(image)
 
+
+def foo(*seqs):
+  return (x for x in product(*seqs) if len(x) == len(set(x)))
+
 # pick word
 wordImage = Image.open("multivariate.png")
 
@@ -153,16 +158,52 @@ wordImage = Image.open("multivariate.png")
 svmlist = getSVMList(wordImage.copy())
 dtwlist = getSVMList(wordImage.copy())
 
-print 'svmlist='+str(svmlist)
-print 'dtwlist='+str(dtwlist)
+#print 'svmlist='+str(svmlist)
+#print 'dtwlist='+str(dtwlist)
+
+def permutations(list):
+  orig = "";
+  for cl in list:
+    orig += cl[0];
+
+  wordlist = [orig];
+
+  print orig;
+  
+  for ci in range(0, len(list)):
+    for word in wordlist:
+      for ct in list[ci]:
+        cs = word[:ci]+ct+word[ci+1:];
+        if not cs in wordlist: 
+          wordlist.append(cs);
+          #print cs;
+  return wordlist;
+        
+    
 
 combined_list = []
-
-if len(svmlist) == len(dtwlist)
-  for i in range(len(svmlist))
+combined_list2 = []
+if len(svmlist) == len(dtwlist):
+  for i in range(len(svmlist)):
     # for each char in the word
-    svm_candidates = svmlist[i]
-    dtw_candidates = dtwlist[i]
-    intersection_candidates = [filter(lambda x: x in svm_candidates, dtw_candidates)]
-    print intersection_candidates
+    svm_candidates = svmlist[i][0]
+    dtw_candidates = dtwlist[i][0]
+    
+    #intersection_candidates = filter(lambda x: x in svm_candidates, dtw_candidates)[0]
+    #union_candidates = svm_candidates+filter(lambda x: x not in svm_candidates, dtw_candidates)[0]
+    
+    
+    intersection_candidates = map(chr,list(set(map(ord,svm_candidates)) & set(map(ord,dtw_candidates))))
+    union_candidates = map(chr, list(set(map(ord,svm_candidates)) | set(map(ord,dtw_candidates))))
+    
+    if len(intersection_candidates) == 0:
+      intersection_candidates = [svm_candidates[0], dtw_candidates[0]] 
+    print svm_candidates
 
+    combined_list.append(intersection_candidates)
+    combined_list2.append(union_candidates)
+  
+  print combined_list
+  print combined_list2
+  possibles = permutations(combined_list);
+  print len(possibles)
