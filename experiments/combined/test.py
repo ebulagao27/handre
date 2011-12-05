@@ -16,6 +16,10 @@ import math
 from itertools import product
 import featuredtw
 
+def isCapital(char):
+  # print 'checking char=' + str(char)
+  return ord(char) >= ord('A') and ord(char) <= ord('Z')
+
 def getSVMList(image):
 
   # get the individual characters
@@ -59,12 +63,15 @@ def getSVMList(image):
     for tp in guess_table:
       # for each tuple (<char>,<prob>)
       tp = (tp[0], guess[i])
-      if capitalizationRemoval and i>0:
-        pass
+      if capitalizationRemoval:
+        if (isCapital(tp[0]) and i>0):
+          pass#print 'skipping capital letter'+str(tp[0])    
+        else:
+          newRow.append((tp[0], guess[i]))
       else:
         newRow.append((tp[0], guess[i]))
       i += 1
-    
+    # print newRow 
     big_table.append(newRow)
   
   return_table = []
@@ -72,6 +79,7 @@ def getSVMList(image):
   for row in big_table:
     candidates = []
     row.sort(key=lambda r: r[1], reverse=True)
+    print row
     for i in range(3):
       candidates.append(row[i][0])
     return_table.append(candidates)
@@ -158,7 +166,7 @@ def foo(*seqs):
   return (x for x in product(*seqs) if len(x) == len(set(x)))
 
 # pick word
-wordImage = Image.open("Learning.png")
+wordImage = Image.open("Rather.png")
 
 # run
 print 'getting svmlist ...'
