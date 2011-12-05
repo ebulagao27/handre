@@ -4,7 +4,7 @@ import string
 def words(text): return re.findall('[a-z]+', text.lower()) 
 
 replaceable = [
-	"aq", "yvu", "ec", "il", "hn", "ts"
+	"aq","yvu", "ec", "il", "rt"
 ];
 def exist(l, a):
 	for li in l:
@@ -68,6 +68,7 @@ def correct(word_o):
 	
 	pl = [];
 	for word in knownchanges(word_o):
+		print word;
 		word = word.lower();
 		candidates = known([word]) or known(edits1(word)) or known_edits2(word) or[word]
 		pc = max(candidates, key=NWORDS.get);
@@ -88,7 +89,7 @@ def correct(word_o):
 	
 	predictions.sort(key=lambda a:a[1]);
 	if (len(predictions) > 0 ):
-		return predictions[0][0];
+		return predictions[len(predictions)-1][0];
 	else: return None;
 		
 
