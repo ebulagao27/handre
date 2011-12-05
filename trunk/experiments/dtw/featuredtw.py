@@ -3,12 +3,14 @@
 from PIL import Image, ImageOps;
 import struct;
 import math;
+import sys;
 
 def matprint(a):
 	for i in a:
 		print "";
 		for j in i:
-			print j,
+			if j > 190: print 1,
+			else: print 0,
 
 def dtw(a, b, w):
 	al = len(a);
@@ -88,7 +90,7 @@ def mddtw(a, b, fn, w):
 				l2 = [];
 				for x in range(0,asx): l1.append(a[ai][x]);
 				for x in range(0,bsx): l2.append(b[bi][x]);
-				m[ai].append(dtw(l1,l2, 10));
+				m[ai].append(dtw(l1,l2, max(8, abs(len(l1)-len(l2))+4)));
 
 
 			elif (fn == 1):
@@ -234,155 +236,176 @@ for id in range(0,icount):
 ## Load Image
 
 
+def getDTWList(mg, getCount = 3):
+
+	img = mg;
+
+	imw = img.size[0];
+	imh = img.size[1];
+
+	imm = [];
+
+	for y in range(0, img.size[1]):
+		imm.append([]);
+		for x in range(0, img.size[0]):
+			if ( img.getpixel((x,y))[0] < 190 ):
+				imm[y].append(255);
+			else:
+				imm[y].append(0);
+
+	dlist = [];
+	running = True;
+	for x in range(0, img.size[0]):
+		pcount = 0;
+		for y in range(0, img.size[1]):
+			if ( imm[y][x] > 190 ): pcount += 1;
+
+		if ( pcount  == 0 ):
+			if ( not running ):
+				running = True;
+				dlist.append(x);
+
+		else: running = False;
+
+	if not running: dlist.append(img.size[0]);
+
+	#print dlist;
+
+	lastd = 0;
+
+	guessstring = [];
+	charidx = 0;
+	for d in dlist:
+		nim1 = img.crop((lastd,0,min(d+1,img.size[0]), img.size[1]));
+		nim11 = nim1.crop(ImageOps.invert(nim1.convert("RGB")).getbbox());
+
+		nim2 = nim11;
+		if (nim11.size[0] < 24  or nim11.size[1] < 24):
+#			exa = (28 - max(nim11.size[0], nim11.size[1]))/2;
+			exa = (28 - (nim11.size[0]+nim11.size[1])/2)/2;
+			nim2 = ImageOps.expand(nim11, border=exa, fill='white');
+		
+		if (nim11.size[0] < 24  or nim11.size[1] < 24):
+#			exa = (28 - max(nim11.size[0], nim11.size[1]))/2;
+			exa = (28 - (nim11.size[0]+nim11.size[1])/2)/2;
+			nim2 = ImageOps.expand(nim11, border=exa, fill='white');
+		
+		if (nim11.size[0] < 24  or nim11.size[1] < 24):
+#			exa = (28 - max(nim11.size[0], nim11.size[1]))/2;
+			exa = (28 - (nim11.size[0]+nim11.size[1])/2)/2;
+			nim2 = ImageOps.expand(nim11, border=exa, fill='white');
+
+		sm = [];
+		for y in range(0,nim2.size[1]):
+			sm.append([]);
+			for x in range(0, nim2.size[0]):
+				if (nim2.getpixel((x,y))[0] > 190):
+					sm[y].append(0);
+				else: 
+					sm[y].append(255);
+
+		lastd = d;
+
+		#print nim2.size;
+		#matprint (sm);
+		#print "";
+		
+		ft = analyze_fontfeature(sm, 0,0);
+		xs = ft[0];
+		ys = ft[1];
+		#matprint(sm);
+
+		capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+		fl = [];
+		for id in range(0, icount):
+			xd = (dtw(xs, xseries[id],max(abs(len(xs)-len(xseries[id])),8))+1);
+			yd = (dtw(ys,yseries[id],max(abs(len(ys)-len(yseries[id])),8))+1);
+			fl.append((chr(labels[id]), id,xd+yd,xd,yd));
+		fl.sort(key=lambda a: a[2]);
+
+		#matprint(da[fl[0][1]]);
+		#print xseries[fl[0][1]]
+		#print xs;
+		#print yseries[fl[0][1]]
+		#print ys;
+		#print xd, yd;
+		
+		maxdt1 = 0;
+		maxdt2 = 0;
+		maxdt3 = 0;
+		el = [];
+		printcount = 0;
+		for i in fl:
+			exist = False;
+			for e in el:
+				if e[0] == i[0]: 
+					exist = True;
+					break;
+
+			if exist == False and not (charidx > 0 and i[0] in capitals): 
+				#print i;
+				dt1 = mddtw(sm, da[i[1]], 0, 8);
+				dt2 = mddtw(sm, da[i[1]], 1, 8);
+				dt3 = mddtw(sm, da[i[1]], 2, 8);
+
+				if ( dt1 > maxdt1 ): maxdt1 = dt1;
+				if ( dt2 > maxdt2 ): maxdt2 = dt2;
+				if ( dt3 > maxdt3 ): maxdt3 = dt3;
+				#print "\t"+str(mddtw(sm, da[i[1]], 0, 100)),
+				#print "\t"+str(mddtw(sm, da[i[1]], 1, 100)),
+				#print "\t"+str(mddtw(sm, da[i[1]], 2, 100));
+				el.append((i[0], dt1, dt2, dt3));
+				printcount += 1;
+				if ( printcount > 15 ): break;
+		
+
+		#print "";
+		nel = [];
+		for e in el:
+			dt1 = 1.0*e[1]/maxdt1;
+			dt2 = 1.0*e[2]/maxdt2;
+			dt3 = 1.0*e[3]/maxdt3;
+			dtd = math.pow(dt1, 2) + math.pow(dt2, 2) + math.pow(dt3,2);
+			if ( dt1 < 0.9 and dt2 < 0.9 and dt3 < 0.9 ):
+				nel.append((e[0], dtd, dt1, dt2, dt3));
+#				if (len(nel) == 0 ):
+#					nel.append((e[0], dtd, dt1, dt2, dt3));
+#				elif (len(nel) == 1):
+#					if not (nel[0][1] < 1.0 and dtd > 1.5):
+#						nel.append((e[0], dtd, dt1, dt2, dt3));
+#					else: break;
+#				else:
+#					nel.append((e[0], dtd, dt1, dt2, dt3));
+					
+		
+		nel.sort(key=lambda a: a[1]);
+		
+		posc = [];
+		for e in nel:
+			#print e;
+			if ( len(posc) < getCount ):
+				posc.append(e[0]);
+		guessstring.append(posc);
+		charidx += 1;
+
+	return guessstring;
+
+
+		
+
+
 #mg = Image.open("distributed.png");	
-mg = Image.open("forany_.png");	
+#mg = Image.open("Gaussian.png");	
+#mg = Image.open("update.png");	
+#mg = Image.open("forany_.png");	
 #mg = Image.open("helloworld4.png");	
 #mg = Image.open("multivariate.png");	
 #mg = Image.open("finitely.png");	
 #mg = Image.open("Kernels.png");	
+#if (len( sys.argv) > 1 ):
+#	mg = Image.open(sys.argv[1]);
 
-for y in range(0, mg.size[1]):
-	for x in range(0, mg.size[0]):
-		if ( mg.getpixel((x,y))[0] > 190 ): mg.putpixel((x,y), (0,0,0));
-		else: mg.putpixel((x,y), (255,255,255));
+#res = getDTWList(mg);
+#print res;
 
-bb = mg.getbbox();
-img = mg.crop((bb[0], max(bb[1] - 2, 0), bb[2], max(bb[3] + 2, mg.size[1])));
-
-imw = img.size[0];
-imh = img.size[1];
-
-imm = [];
-
-for y in range(0, img.size[1]):
-	imm.append([]);
-	for x in range(0, img.size[0]):
-		if ( img.getpixel((x,y))[0] > 190 ):
-			imm[y].append(255);
-		else:
-			imm[y].append(0);
-
-dlist = [];
-running = True;
-for x in range(0, img.size[0]):
-	pcount = 0;
-	for y in range(0, img.size[1]):
-		if ( imm[y][x] > 190 ): pcount += 1;
-
-	if ( pcount  == 0 ):
-		if ( not running ):
-			running = True;
-			dlist.append(x);
-
-	else: running = False;
-
-if not running: dlist.append(img.size[0]);
-
-print dlist;
-
-lastd = 0;
-guessstring = ["", "", ""];
-
-for d in dlist:
-	sm = [];
-	for y in range(0,len(imm)):
-		sm.append([]);
-		for x in range(lastd, d):
-			sm[y].append(imm[y][x]);
-
-
-	nim1 = img.crop((lastd,0,d,img.size[1]));
-	nbb = nim1.getbbox();
-#	nim11 = nim1.crop((max(nbb[0]-3,0), max(nbb[1]-3,0), min(nbb[2]+3,nim1.size[0]), min(nbb[3]+3,nim1.size[1])));
-	nim11 = nim1.crop(nbb);
-	nim2 = nim11;
-	if (nim11.size[0] < 28 ):
-		exa = (28 - nim11.size[0])/2;
-		nim2 = ImageOps.expand(nim11, border=exa, fill='black');
-
-	sm = [];
-	for y in range(0,nim2.size[1]):
-		sm.append([]);
-		for x in range(0, nim2.size[0]):
-			sm[y].append(nim2.getpixel((x,y))[0]);
-
-	lastd = d;
-
-
-	
-	ft = analyze_fontfeature(sm, 0,0);
-	xs = ft[0];
-	ys = ft[1];
-	#matprint(sm);
-
-	fl = [];
-	for id in range(0, icount):
-		xd = (dtw(xs, xseries[id],max(abs(len(xs)-len(xseries[id])),8))+1);
-		yd = (dtw(ys,yseries[id],max(abs(len(ys)-len(yseries[id])),8))+1);
-		fl.append((chr(labels[id]), id,xd+yd,xd,yd));
-	fl.sort(key=lambda a: a[2]);
-
-	#matprint(da[fl[0][1]]);
-	print "";
-	#print xseries[fl[0][1]]
-	#print xs;
-	#print yseries[fl[0][1]]
-	#print ys;
-	#print xd, yd;
-	
-	maxdt1 = 0;
-	maxdt2 = 0;
-	maxdt3 = 0;
-	el = [];
-	printcount = 0;
-	for i in fl:
-		exist = False;
-		for e in el:
-			if e[0] == i[0]: exist = True;
-
-		if exist == False: 
-			#print i;
-			dt1 = mddtw(sm, da[i[1]], 0, 100);
-			dt2 = mddtw(sm, da[i[1]], 1, 100);
-			dt3 = mddtw(sm, da[i[1]], 2, 100);
-
-			if ( dt1 > maxdt1 ): maxdt1 = dt1;
-			if ( dt2 > maxdt2 ): maxdt2 = dt2;
-			if ( dt3 > maxdt3 ): maxdt3 = dt3;
-			#print "\t"+str(mddtw(sm, da[i[1]], 0, 100)),
-			#print "\t"+str(mddtw(sm, da[i[1]], 1, 100)),
-			#print "\t"+str(mddtw(sm, da[i[1]], 2, 100));
-			el.append((i[0], dt1, dt2, dt3));
-			printcount += 1;
-			if ( printcount > 15 ): break;
-	
-
-	#print "";
-	nel = [];
-	for e in el:
-		dt1 = 1.0*e[1]/maxdt1;
-		dt2 = 1.0*e[2]/maxdt2;
-		dt3 = 1.0*e[3]/maxdt3;
-		dtd = math.pow(dt1, 2) + math.pow(dt2, 2) + math.pow(dt3,2);
-		nel.append((e[0], dtd, dt1, dt2, dt3));
-	
-	nel.sort(key=lambda a: a[1]);
-	guessstring[0] += str(nel[0][0]);
-	guessstring[1] += str(nel[1][0]);
-	guessstring[2] += str(nel[2][0]);
-	for e in nel:
-		print e;
-	print "";
-
-
-print guessstring[0];
-print guessstring[1];
-print guessstring[2];
-
-			
-
-		
-		
-
-
-		
