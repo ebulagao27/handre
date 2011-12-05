@@ -35,8 +35,11 @@
 
 \maketitle
 
-%\newpage
+\begin{abstract}
+	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series method and pixel analysis to perform segmentation of the document; from the entire image into invididual words, and from words into individual characters. We then make use of 2 approaches to recognize individual characters -- a kernel-based support vector machine (SVM) classifier and a dynamic time-warping (DTW) method which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
+\end{abstract}
 
+%\newpage
 % \tableofcontents
 
 \section{Introduction}
