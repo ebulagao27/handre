@@ -69,7 +69,7 @@ def getSVMList(image):
     row.sort(key=lambda r: r[1], reverse=True)
     for i in range(3):
       candidates.append(row[i][0])
-    return_table.append([candidates])
+    return_table.append(candidates)
 
   # print return_table
   return return_table
@@ -157,8 +157,9 @@ wordImage = Image.open("data.png")
 
 # run
 svmlist = getSVMList(wordImage.copy())
-dtwlist = featuredtw.getDTWList(wordImage.copy())
+dtwlist = getSVMList(wordImage.copy())#featuredtw.getDTWList(wordImage.copy())
 
+dtwlist.reverse()
 print 'svmlist='+str(svmlist)
 print 'dtwlist='+str(dtwlist)
 
@@ -187,12 +188,12 @@ combined_list2 = []
 if len(svmlist) == len(dtwlist):
   for i in range(len(svmlist)):
     # for each char in the word
-    svm_candidates = svmlist[i][0]
-    dtw_candidates = dtwlist[i][0]
+    svm_candidates = svmlist[i]
+    dtw_candidates = dtwlist[i]
     
+    print
     #intersection_candidates = filter(lambda x: x in svm_candidates, dtw_candidates)[0]
     #union_candidates = svm_candidates+filter(lambda x: x not in svm_candidates, dtw_candidates)[0]
-    
     
     intersection_candidates = map(chr,list(set(map(ord,svm_candidates)) & set(map(ord,dtw_candidates))))
     union_candidates = map(chr, list(set(map(ord,svm_candidates)) | set(map(ord,dtw_candidates))))
