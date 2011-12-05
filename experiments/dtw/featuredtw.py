@@ -482,12 +482,12 @@ def getDTWList(mg, getCount = 3):
 #mg = Image.open("update.png");	
 #mg = Image.open("forany_.png");	
 #mg = Image.open("helloworld4.png");	
-#mg = Image.open("multivariate.png");	
+mg = Image.open("multivariate.png");	
 #mg = Image.open("finitely.png");	
 #mg = Image.open("Kernels.png");	
-#if (len( sys.argv) > 1 ):
-#	mg = Image.open(sys.argv[1]);
+if (len( sys.argv) > 1 ):
+	mg = Image.open(sys.argv[1]);
 
-#res = getDTWList(mg);
-#print res;
+res = getDTWList(mg);
+print res;
 

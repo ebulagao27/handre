@@ -153,7 +153,7 @@ def foo(*seqs):
   return (x for x in product(*seqs) if len(x) == len(set(x)))
 
 # pick word
-wordImage = Image.open("data.png")
+wordImage = Image.open("distributed.png")
 
 # run
 print 'getting svmlist ...'
