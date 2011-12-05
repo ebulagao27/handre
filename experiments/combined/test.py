@@ -51,13 +51,18 @@ def getSVMList(image):
   for guess in predictions_prob:
     guess_table = []
     guess_table.extend(rowTable)
-    
+   
+    capitalizationRemoval = True
+
     i=0
     newRow = []
     for tp in guess_table:
       # for each tuple (<char>,<prob>)
       tp = (tp[0], guess[i])
-      newRow.append((tp[0], guess[i]))
+      if capitalizationRemoval and i>0:
+        pass
+      else:
+        newRow.append((tp[0], guess[i]))
       i += 1
     
     big_table.append(newRow)

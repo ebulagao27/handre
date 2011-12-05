@@ -6,13 +6,14 @@ from scipy.misc import imsave
 from sklearn import svm, metrics
 from sklearn.cross_validation import LeaveOneOut
 from sklearn.externals import joblib
+from sklearn.multiclass import OneVsRestClassifier
 import prepare_data
 import scipy
 from numpy import vstack
 from numpy import append
 import os
 # train the digits 0
-alphabets  = []#['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'] #'a', 'd', 'e', 'c', 'u', 's', 'o', 'f', 't']
+alphabets  =[] #['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'] #'a', 'd', 'e', 'c', 'u', 's', 'o', 'f', 't']
 alphabets_ord = map(ord, alphabets)
 ignoreList = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
 ignoreList = map(ord, ignoreList)
@@ -109,8 +110,8 @@ print 'actual       =' + str(map(chr,map(int,y_test)))
 print 'prediction   =' + str(map(chr,map(int,prediction)))
 print '--------------------------------------'
 
-predict_prob = classifier.predict_proba(x_test)
-print predict_prob
+#predict_prob = classifier.predict_proba(x_test)
+#print predict_prob
 
 # report
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
