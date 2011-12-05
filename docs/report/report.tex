@@ -82,7 +82,16 @@
 	\end{equation*}
 
 	where $x_{i}$ represents each training data point, with $y_{i}$ being its corresponding target classification. $\mathbf{\theta}$ is the model, or parameter, of the classifier with offset $\theta_{0}$, while C and $\xi$ represent the penalty and slack variables respectively.
+	
 	\subsubsection{Mutliple Classes}
+	In our project, we are interested in the use of SVMs to classify individual characters based the a given vector input of pixel values. Extending SVMs to support multiple target classifications requires us to train multiple binary classifiers, one for each individual target character. Given an input vector, each classifier would give a possible classification, and we then employ \textbf{voting} as a way of deciding the best classification result for our data. The common voting strategies to decide on a classification described as follows.
+
+	\paragraph{One-versus-One}
+	In One-versus-One 
+		
+	\paragraph{One-versus-Rest}
+
+	
 
 	
 	\subsection{K-means Clustering using Dynamic Time-Warping}
