@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 16:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 17:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -328,49 +328,29 @@ LaTeX Info: Redefining \nameref on input line 36.
 [1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2]
-
-LaTeX Warning: Reference `subsection:svm' on page 3 undefined on input line 66.
-
-
-
-LaTeX Warning: Reference `subsection:dtw' on page 3 undefined on input line 66.
-
-
-
-LaTeX Warning: Reference `subsection:combined' on page 3 undefined on input lin
-e 66.
-
-[3] [4] [5] [6] [7] [8]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
+[2] [3] [4] [5] [6] [7] [8] [9]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 147.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
- [9]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 147.
+ [10]
 No file report.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 173.
-[10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 173.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
+[11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 173.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 173.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 173.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 182.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 5766 strings out of 493633
- 83787 string characters out of 3143378
- 170738 words of memory out of 3000000
+ 5769 strings out of 493633
+ 83814 string characters out of 3143378
+ 170216 words of memory out of 3000000
  8976 multiletter control sequences out of 15000+200000
  11509 words of font info for 41 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
@@ -386,10 +366,10 @@ cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loca
 l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
 exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
 xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (10 pages, 148091 bytes).
+Output written on report.pdf (11 pages, 148357 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
- 50 named destinations out of 1000 (max. 500000)
+ 155 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
+ 53 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
