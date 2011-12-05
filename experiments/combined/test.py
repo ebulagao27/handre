@@ -156,10 +156,12 @@ def foo(*seqs):
 wordImage = Image.open("data.png")
 
 # run
+print 'getting svmlist ...'
 svmlist = getSVMList(wordImage.copy())
+
+print 'getting dtwlist ...'
 dtwlist = featuredtw.getDTWList(wordImage.copy())
 
-dtwlist.reverse()
 print 'svmlist='+str(svmlist)
 print 'dtwlist='+str(dtwlist)
 
