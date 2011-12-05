@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 13:46
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 14:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -274,33 +274,33 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] [4] [5] [6] [7]
+[2] [3] [4] [5] [6] [7] [8]
 No file report.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 111.
-[8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 111.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 114.
+[9]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 114.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 111.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 111.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 111.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 114.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 114.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 114.
  ) 
 Here is how much of TeX's memory you used:
- 5131 strings out of 493633
- 76427 string characters out of 3143378
+ 5135 strings out of 493633
+ 76490 string characters out of 3143378
  158428 words of memory out of 3000000
  8382 multiletter control sequences out of 15000+200000
  6978 words of font info for 25 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 29i,6n,24p,1325b,314s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,6n,24p,1290b,314s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
 usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on report.pdf (8 pages, 91049 bytes).
+Output written on report.pdf (9 pages, 92087 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 86 compressed objects within 1 object stream
- 39 named destinations out of 1000 (max. 500000)
+ 110 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
+ 43 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
