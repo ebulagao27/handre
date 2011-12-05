@@ -446,7 +446,7 @@ def getDTWList(mg, getCount = 3):
 			dt5 = 1.0*e[5]/maxdt5;
 			if (maxdt6 > 0): dt6 = 1.0*e[6]/maxdt6;
 			dtd = math.pow(dt1, 2) + math.pow(dt4, 2);# + math.pow(dt3,2);
-			dtd += math.pow(dt2, 4) + math.pow(dt3, 4) + math.pow(dt5,4);
+			dtd += math.pow(dt2, 4) + math.pow(dt5, 4);# + math.pow(dt5,8);
 #			if ( dt1 < 0.9 and dt2 < 0.9 and dt3 < 0.9 ):
 			nel.append((e[0], dtd, dt1, dt2, dt3, dt4, dt5, dt6));
 #				if (len(nel) == 0 ):
@@ -463,7 +463,7 @@ def getDTWList(mg, getCount = 3):
 		
 		posc = [];
 		for e in nel:
-			print e;
+			print e[0], e[1];
 			if ( len(posc) < getCount ):
 				posc.append(e[0]);
 		guessstring.append(posc);
@@ -484,10 +484,10 @@ def getDTWList(mg, getCount = 3):
 #mg = Image.open("helloworld4.png");	
 #mg = Image.open("multivariate.png");	
 #mg = Image.open("finitely.png");	
-mg = Image.open("Kernels.png");	
-if (len( sys.argv) > 1 ):
-	mg = Image.open(sys.argv[1]);
+#mg = Image.open("Kernels.png");	
+#if (len( sys.argv) > 1 ):
+#	mg = Image.open(sys.argv[1]);
 
-res = getDTWList(mg);
-print res;
+#res = getDTWList(mg);
+#print res;
 
