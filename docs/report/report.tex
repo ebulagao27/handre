@@ -23,6 +23,8 @@
 %\renewcommand{\baselinestretch}{1.5} % Uncomment for 1.5 spacing between lines
 \parindent 0pt		 				% sets leading space for paragraphs%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\degree}{\ensuremath{^\circ}}
+
 \title{Handr\'{e}: An Experimental Approach to Intelligent Character/Word Recognition using Support Vector Machines \& Dynamic Time Warping}
 \date{\today}
 \author{
@@ -93,6 +95,8 @@
 		
 	\paragraph{One-versus-rest}
 	In one-versus-rest voting, each character has a classifier which is fit to it. When making the predicition, the class with the highest classification output is chosen in a \textit{winner-takes-all} strategy.
+
+	
 	
 	\subsection{K-means Clustering using Dynamic Time-Warping}
 	\label{subsection:dtw}
@@ -111,12 +115,20 @@
 In this section, we cover the experiements which we undertook in order to apply the segmentation and recognition techniques from Sections~\ref{section:segmentation} and~\ref{section:recognition}. In Section~\ref{subsection:experiments:svm}, we describe the prodedure in which we trained the multi-class SVMs on training data which consisted of different images of each alphabet character for a variety of fonts. Section~\ref{subsection:experiments:dtw} outlines the application of DTW onto a single font set and how it was used to perform its classification. How the results from both experiments were combined together to make committee-based decision is covered in Section~\ref{subsection:experiments:combinedchar}. Finally, Section~\ref{subsection:experiments:combinedword} explains the use of the dictionary spelling checker to improve the result and come up with a final decision.
 	\subsection{Multi-class Support Vector Machines}
 	\label{subsection:experiments:svm}
-		\subsubsection{Training Data}
-		For the purpose of our project, we tried to locate a resource of training data for alphabets which was commonly available. Several repositories containing data were either inappropriate (stylus-written pen characters) or required some form of payment. More importantly, we wanted to show-case that system could make use of a generic database for its training data, and not have to resort in having a particular target domain to have to first provide us with both a vast number of examples, but also go through the tedious task of hand-labelling them. As such, we decided upon using readily available TrueType fonts as our training data. 
+
+	\subsubsection{Training Data}
+		For the purpose of our project, we tried to locate a resource of training data for alphabets which was commonly available. Several repositories containing data were either unsuitable or was paid-only. More importantly, we wanted to show-case that system could make use of a generic database for its training data, and not have to resort in having a particular target domain to have to first provide us with both a vast number of examples, but also go through the tedious task of hand-labelling them though it given the resources and time, it might be a possible way to improve the system (Section~\ref{section:conclusion}). As such, we decided to using readily available TrueType fonts as our training data.
+			
+		\paragraph{Training on Fonts} 
+		We made use of fonts for our training data by randomly picking a set of handwritten fonts which are freely available on the web (see Appendix~\ref{appendix:data:font} for the list and samples.) In order to normalize the characters, we resized each character to fit within a 28x28 square image\footnote{This is the same dimensions used by the MNIST database, and serves as a reference point for common handwritten character sizes.}. The character is then set to black-and-white mode, in which the pixel values are either 0 (black) or 255 (white). For each character in the font, we also created additional samples of the character image by rotating the characters by an angle between [-16\degree, +16\degree]. 	
+		
+		\paragraph{SVM Kernels and Parameters}
+			
+
 		\subsubsection{Testing on Handwritten Text}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	\subsection{K-means Clustering using DTW}
-	\subsubsection{subsection:experiments:dtw}
+	\label{subsection:experiments:dtw}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	\subsection{Combined Character recognition}
 	\label{subsection:experiments:combinedchar}
@@ -136,6 +148,7 @@ In this section, we cover the experiements which we undertook in order to apply 
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	
 \section{Conclusions \& Future Work}
+\label{section:conclusion}
 	\subsection{Conclusions}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	\subsection{Future Work}
@@ -146,6 +159,8 @@ In this section, we cover the experiements which we undertook in order to apply 
 	 
 \appendix
 	\section{Data \& Results}
+		\subsection{Font Samples}
+		\label{appendix:data:font}
 	\section{Project Timeline}
 		\subsection*{Week 1: 10/28 -- 11/5 }
 			\begin{itemize}
