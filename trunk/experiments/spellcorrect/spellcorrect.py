@@ -4,7 +4,7 @@ import string
 def words(text): return re.findall('[a-z]+', text.lower()) 
 
 replaceable = [
-	"aq","yvu", "ec", "il", "rt"
+	"aq","yvu", "etcrf", "il", "hn"
 ];
 def exist(l, a):
 	for li in l:
@@ -37,6 +37,13 @@ def knownchanges(word_o):
 						if (not exist(rword, cc)): rword.append(cc);
 	return rword;
 	
+def edit_distance(a, b):
+	total = 0;
+	for i in range(min(len(a),len(b))):
+		if (a[i] != b[i] ): total += 1;
+	
+	total += abs(len(a)-len(b));
+	return total;
 
 def train(features):
 	model = collections.defaultdict(lambda: 1)
@@ -81,15 +88,22 @@ def correct(word_o):
 		exist = False;
 		for i in range(len(predictions)):
 			if (predictions[i][0] == p):
-				predictions[i] = (p, predictions[i][1]+1);
+				predictions[i] = (p,min(edit_distance(p,word_o), predictions[i][1]));
 				exist = True;
 				break;
 		if (not exist):
-			predictions.append((p, 1));
+			predictions.append((p, edit_distance(p,word_o)));
 	
 	predictions.sort(key=lambda a:a[1]);
 	if (len(predictions) > 0 ):
-		return predictions[len(predictions)-1][0];
+		lowest = predictions[0][1];
+		rp = [];
+		for p in predictions:
+			if p[1] <= lowest: rp.append(p);
+			
+		return rp;
+#	#	return (predictions[len(predictions)-1][0],
+	#		predictions[len(predictions)-2][0]);
 	else: return None;
 		
 

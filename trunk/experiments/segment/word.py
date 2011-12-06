@@ -91,7 +91,7 @@ for i in range(0, len(nar)):
 	for j in range(0, nar[i]*imsize[1]/maxs):
 		img.putpixel((i,j), (0,0,255));
 
-img.save("result/sawords.png", "png");
+img.save("result/sawords"+sys.argv[1]+".png", "png");
 
 last_d = 0;
 linec = 0;

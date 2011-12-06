@@ -1,0 +1,5 @@
+aad
+qad
+aqd
+qqd
+[('and', 1), ('had', 1)]
