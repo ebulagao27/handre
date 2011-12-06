@@ -109,8 +109,7 @@
 \label{section:experiments}
 In this section, we desribe the experimental design which we undertook in order to apply the segmentation and recognition techniques from Sections~\ref{section:segmentation} and~\ref{section:recognition}. In Section~\ref{subsection:experiments:svm}, we describe the prodedure in which we trained the multi-class SVMs on training data which consisted of different images of each alphabet character for a variety of fonts. Section~\ref{subsection:experiments:dtw} outlines the application of DTW onto a single font set and how it was used to perform its classification. How the results from both experiments were combined together to make committee-based decision is covered in Section~\ref{subsection:experiments:combinedchar}. Finally, Section~\ref{subsection:experiments:combinedword} explains the use of the dictionary spelling checker to improve the result and come up with a final decision.
 	
-	\subsection{Recognizing Alphabet Characters using Multi-Class SVMs}
-	\label{subsection:experiments:svm}
+	\subsection{Training \& Testing Data}
 	For the purpose of our project, we tried to locate a resource of training data for alphabets which was commonly available. Several repositories containing data were either unsuitable or was paid-only. More importantly, we wanted to show-case that system could make use of a generic database for its training data, and not have to resort in having a particular target domain to have to first provide us with both a vast number of examples, but also go through the tedious task of hand-labelling them though it given the resources and time, it might be a possible way to improve the system (Section~\ref{section:conclusion}). As such, we decided to using readily available TrueType fonts as our training data.
 			
 		\subsubsection{Using Font Images as Training Sets}
@@ -118,13 +117,26 @@ In this section, we desribe the experimental design which we undertook in order 
 		\begin{figure}[htbp!]
 		\centering
 		\includegraphics[width=0.8\textwidth]{training_data.eps}
-		\label{figure:training_data}
 		\caption{17 different rotations for each alphabet character}
+		\label{figure:training_data}
 		\end{figure}
 		
 		We made use of fonts for our training data by randomly picking a set of handwritten fonts which are freely available on the web (see Appendix~\ref{appendix:data:font} for the list and samples.) In order to normalize the characters, we resized each character to fit as a 28x28 white-on-black square image\footnote{We referenced the dimensions used by the MNIST database, and serves as a reference point for common handwritten character sizes.}. The character is then set to black-and-white mode, in which the pixel values are either 0 (black) or 255 (white). For each character in the font, we also created additional samples of the character image by rotating the characters by an angle between [-16\degree, +16\degree]. Thus, each training sample can be viewed as a 1x784 vector of pixel values. Figure~\ref{figure:training_data} shows an example of a font character which has been normalized and its various rotations.	
+	
+	\subsubsection{Testing on Handwritten Text}
 		
-		\subsubsection{Training Parameters}
+		\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.5\textwidth]{multivariate_test.eps}
+		\caption{Segmenting and normalizing a scanned image into its individual characters}
+		\label{figure:multivariate_test}
+		\end{figure}
+		
+		Image segments containing words which were obtained from the word-segmentation step (Section~\ref{section:segmentation}) were used for tests. The images were then cleaned and individual characters were extracted for the recognition process. We perform similar normalization steps in order to make the test images have the same dimensions and format as our training data -- images have their colors inverted, are cropped and resized to 28x28 pixels. Using our optimal performing classifier, we then attempt to classify each individual character in the word of $l$ characters. An example of a test image is shown in Figure~\ref{figure:multivariate_test}.
+	
+	\subsection{Recognizing Alphabet Characters using Multi-Class SVMs}
+	\label{subsection:experiments:svm}
+
 		In order to be train the best classifier for our recognition task, we varied the parameters and kernels used and performed cross-validation in order to select the best performing one. The following list describes the various parameters and choices we used. We optimised the parameters based on the precision score and recall score. Section~\ref{subsubsection:analysis:svm} shows the results of this experiment and the final values which we made use of.
 
 		\begin{itemize}
@@ -139,20 +151,9 @@ In this section, we desribe the experimental design which we undertook in order 
 			\end{itemize}
 		\end{itemize}
 
-		Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification.
+		Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification. We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this probability table to make a combined decision, together with the DTW method, in order to improve our word recognition results.
 
-		\subsubsection{Testing on Handwritten Text}
 		
-		\begin{figure}[htbp!]
-		\centering
-		\includegraphics[width=0.5\textwidth]{multivariate_test.eps}
-		\label{figure:multivariate_test}
-		\caption{Segmenting and normalizing a scanned image into its individual characters}
-		\end{figure}
-		
-		Image segments containing words which were obtained from the word-segmentation step (Section~\ref{section:segmentation}) were used for tests. The images were then cleaned and individual characters were extracted for the recognition process. We perform similar normalization steps in order to make the test images have the same dimensions and format as our training data -- images have their colors inverted, are cropped and resized to 28x28 pixels. Using our optimal performing classifier, we then attempt to classify each individual character in the word of $l$ characters. An example of a test image is shown in Figure~\ref{figure:multivariate_test}
-
-We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this probability table to make a combined decision, together with the DTW method, in order to improve our word recognition results.
 	
 	\subsection{K-means Clustering using DTW}
 	\label{subsection:experiments:dtw}
@@ -166,8 +167,8 @@ We also obtain the probability scores of each class (signifying how confident we
 	\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{combined_predictions.eps}
-	\label{figure:combining_characters}
 	\caption{Illustrating how predictions from both systems are combined.}
+	\label{figure:combining_characters}
 	\end{figure}
 	
 	
