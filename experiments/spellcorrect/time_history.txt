@@ -1,0 +1,21 @@
+timn
+eimn
+cimn
+rimn
+fimn
+tlmn
+timh
+elmn
+eimh
+clmn
+cimh
+rlmn
+rimh
+flmn
+fimh
+tlmh
+elmh
+clmh
+rlmh
+flmh
+[('tion', 1), ('limn', 1), ('time', 1)]

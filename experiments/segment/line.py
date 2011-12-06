@@ -4,7 +4,7 @@ from PIL import Image;
 import glob, os;
 import sys;
 
-im = Image.open("zpage.png");
+im = Image.open("page2.png");
 imsize = im.size;
 
 pix_thresh = 210;
@@ -160,6 +160,7 @@ for d in divs:
 
 	mi.save("result/line"+str(linec)+".png", "png");
 	os.system("./word.py "+str(linec));
+	os.system("python word.py "+str(linec));
 	
 	print "Line " + str(linec) + " completed!";
 	last_d = d;
