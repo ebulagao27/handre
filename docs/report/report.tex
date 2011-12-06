@@ -138,8 +138,7 @@
 	\label{subsection:combined}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 
-
-	\subsection{Spelling Corrector}
+	\subsection{Spelling Correction Using Probalistic Dictionary Model}
 	\label{subsection:spellingcheck}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	
@@ -189,8 +188,15 @@ In this section, we desribe the experimental design which we undertook in order 
 				\item C = [0.001, 0.01, 0.01, 1, 10, 100, 1000]
 			\end{itemize}
 		\end{itemize}
+		
+		\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{svm_table.eps}
+		\caption{An example of a prediction table after training on the scanned image containing the word `Rat'}
+		\label{figure:svm_table}
+		\end{figure}
 
-		We optimised the parameters based on the precision score and recall score, and the results of which are shown in Section~\ref{subsubsection:analysis:svm}. Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification. We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this probability table to make a combined decision, together with the DTW method, in order to improve our word recognition results.
+		We optimised the parameters based on the precision score and recall score, and the results of which are shown in Section~\ref{subsubsection:analysis:svm}. Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification. We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this prediction table to make a combined decision, together with the DTW method, in order to improve our word recognition results. An example of a prediction table is shown in Figure~\ref{figure:svm_table}. In this case, the scanned image contains the word `Rat', and after classification of each character in the word, we assign a probabilistic score to each the possible classifications for the character. We use the log-probabilities due to some probabilities becoming extremely small. In the image, the rows are sorted from highest probable classification to lowest from left to right.
 
 	
 	\subsection{K-means Clustering using DTW}
