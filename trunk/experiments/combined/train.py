@@ -95,6 +95,8 @@ for data in x_test:
 classifier = svm.SVC(C=0.001, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 #classifier = svm.LinearSVC() #SVC(C=100, kernel='rbf', degree=3, gamma=1e-3, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 
+# 
+
 # train the classifier
 sys.stdout.write('Training the classifier')
 classifier.fit(x_train, y_train)
@@ -116,5 +118,8 @@ print '--------------------------------------'
 # report
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
 print 'Confusion matrix:\n%s' % (metrics.confusion_matrix(y_test, prediction))
+
+score = classifier.score(x_train, y_train)
+print score
 
 joblib.dump(classifier, 'classy_new.pkl')
