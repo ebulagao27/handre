@@ -52,7 +52,9 @@ def getSVMList(image):
   
   big_table = []
 
+  wordCharIndex = 0
   for guess in predictions_prob:
+    
     guess_table = []
     guess_table.extend(rowTable)
    
@@ -64,8 +66,8 @@ def getSVMList(image):
       # for each tuple (<char>,<prob>)
       tp = (tp[0], guess[i])
       if capitalizationRemoval:
-        if (isCapital(tp[0]) and i>0):
-          pass#print 'skipping capital letter'+str(tp[0])    
+        if (isCapital(tp[0]) and wordCharIndex>0):
+          print 'skipping capital letter'+str(tp[0])    
         else:
           newRow.append((tp[0], guess[i]))
       else:
@@ -73,13 +75,16 @@ def getSVMList(image):
       i += 1
     # print newRow 
     big_table.append(newRow)
+    
+    wordCharIndex += 1
   
   return_table = []
 
+  print 'len(big_table)='+str(len(big_table))
   for row in big_table:
     candidates = []
     row.sort(key=lambda r: r[1], reverse=True)
-    print row
+    print 'len='+str(len(row))+str(row)
     for i in range(3):
       candidates.append(row[i][0])
     return_table.append(candidates)
