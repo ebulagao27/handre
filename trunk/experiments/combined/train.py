@@ -66,7 +66,7 @@ sys.stdout.write(' ... Done!\n')
 if not os.path.exists("./img"):
   os.makedirs("./img")
 
-printTrain = False
+printTrain = True
 
 if printTrain:
   i=0
@@ -92,7 +92,7 @@ for data in x_test:
   scipy.misc.imsave('./img/x_test' + str(i) + '.png', data.reshape(28,28))
   i = i +1
 # create classifier
-classifier = svm.SVC(C=0.01, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
+classifier = svm.SVC(C=0.001, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 #classifier = svm.LinearSVC() #SVC(C=100, kernel='rbf', degree=3, gamma=1e-3, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 
 # train the classifier
@@ -117,4 +117,4 @@ print '--------------------------------------'
 print 'Classification report for classifier [%s]\n%s' % (classifier, metrics.classification_report(y_test, prediction))
 print 'Confusion matrix:\n%s' % (metrics.confusion_matrix(y_test, prediction))
 
-joblib.dump(classifier, 'classy.pkl')
+joblib.dump(classifier, 'classy_new.pkl')

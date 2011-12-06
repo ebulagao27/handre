@@ -4,7 +4,7 @@ from numpy import array
 from cvxopt import matrix
 from pprint import pprint
 from scipy.misc import imsave
-from sklearn.metrics import classification_report, precision_score, recall_score
+from sklearn.metrics import classification_report, hinge_loss, precision_score, recall_score
 from sklearn.cross_validation import LeaveOneOut, StratifiedKFold
 from sklearn.grid_search import GridSearchCV
 from sklearn.svm import SVC, LinearSVC
@@ -25,7 +25,7 @@ print 'len(images)=' + str(len(images))
 print 'len(labels)=' + str(len(labels)) 
 
 ########
-fonts = ['comicsans','dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion']
+fonts = ['nothingyoucoulddo', 'daniel', 'comicsans','dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion']
 for font in fonts:
   font_images, font_labels = mnist.read(alphabets_ord, './../../data/', font+'_img.idx', font+'_label.idx')
   font_labels = array(font_labels).reshape(1, len(font_labels))[0]
@@ -46,8 +46,8 @@ x_test, y_test = prepare_data.readCSV()
 x_test = array(x_test)
 y_test = array(y_test)
 
-images = vstack((images, x_test))
-labels = append(labels, y_test)
+#images = vstack((images, x_test))
+#labels = append(labels, y_test)
 
 # read the training data and labelsi
 sys.stdout.write('Reading in training data and labels')
@@ -67,7 +67,7 @@ tuned_parameters = [{ 'kernel':['rbf'],
 
                     },
                     { 'kernel':['linear'],
-                      'C' : [0.01, 0.1, 1, 10, 100, 1000]
+                      'C' : [0.001, 0.01, 0.1, 1, 10, 100, 1000]
                     }
                     ]
 scores = [
