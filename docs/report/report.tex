@@ -137,7 +137,7 @@ In this section, we desribe the experimental design which we undertook in order 
 	\subsection{Recognizing Alphabet Characters using Multi-Class SVMs}
 	\label{subsection:experiments:svm}
 
-		In order to be train the best classifier for our recognition task, we varied the parameters and kernels used and performed cross-validation in order to select the best performing one. The following list describes the various parameters and choices we used. We optimised the parameters based on the precision score and recall score. Section~\ref{subsubsection:analysis:svm} shows the results of this experiment and the final values which we made use of.
+		In order to be train the best classifier for our recognition task, we varied the parameters and kernels used and performed cross-validation in order to select the best performing one. The following list describes the various parameters and choices we used
 
 		\begin{itemize}
 			\item Radial Basis Kernel
@@ -147,13 +147,12 @@ In this section, we desribe the experimental design which we undertook in order 
 			\end{itemize}
 			\item Linear Kernel
 			\begin{itemize}
-				\item C = [1, 10, 100, 1000]
+				\item C = [0.001, 0.01, 0.01, 1, 10, 100, 1000]
 			\end{itemize}
 		\end{itemize}
 
-		Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification. We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this probability table to make a combined decision, together with the DTW method, in order to improve our word recognition results.
+		We optimised the parameters based on the precision score and recall score, and the results of which are shown in Section~\ref{subsubsection:analysis:svm}. Additionally, we made use of both the 1-versus-1 strategy and 1-versus-rest voting schemes to perform the multi-class classification. We also obtain the probability scores of each class (signifying how confident we are of our classification) to obtain a table containing $l$ rows, and each row contains a vector of 52 probabilities -- one each for the alphabets (26 upper-case and 26 lower-case characters.) As covered later in Section~\ref{subsection:experiments:combinedchar}, we will make use of this probability table to make a combined decision, together with the DTW method, in order to improve our word recognition results.
 
-		
 	
 	\subsection{K-means Clustering using DTW}
 	\label{subsection:experiments:dtw}
