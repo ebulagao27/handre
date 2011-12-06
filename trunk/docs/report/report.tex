@@ -288,11 +288,78 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	Looking at the guesses for the `i' character in both the 5th and 9th graphs, we note that that certain clusters of characters tend to be closely similar. In this case, `i', `j', `l',`t' and perhaps `f' are closely clustered. Emperically, we decided to adopt a similar selection process to that of the SVM classifier, in which the top three candidates for each character are used for the combined predictions later.
 	
-	\subsection{Combined Character Recognition}
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
+	\subsection{Combined Recognition \& Spelling Correction}
+	\begin{table}
+	\begin{center}
+		\begin{tabular}[l]{|c|c|}
+	  \hline
+	  \multicolumn{2}{|c|}{SVM Prediction Table}  \\
+	  \hline
+	  m & $['m', 'x', 'X']$  \\
+	  u & $['v', 'y', 'u']$  \\
+	  l & $['l', 't', 'k']$  \\
+	  t & $['t', 'k', 'q']$  \\
+	  i & $['l', 'i', 'x']$ \\
+	  v & $['x', 'y', 'v']$  \\
+	  a & $['a', 'q', 'y']$  \\
+	  r & $['t', 'r', 'y']$  \\ 
+		i & $['l', 'f', 'k']$  \\
+	  a & $['a', 'x', 'q']$  \\ 
+	  t & $['k', 'x', 'q']$  \\
+	  e & $['c', 'u', 'a']$  \\
+	  \hline
+	\end{tabular}
+	\quad
+	\begin{tabular}[c]{|c|c|}
+	  \hline
+	  \multicolumn{2}{|c|}{DTW Prediction Table}  \\
+	  \hline
+	  m & $['m', 'w', 'N']$  \\
+	  u & $['y', 'p', 'v']$  \\
+	  l & $['j', 'i', 't']$  \\
+	  t & $['i', 'y', 't']$  \\
+	  i & $['i', 'j', 'l']$  \\
+	  v & $['y', 'q', 'p']$  \\
+	  a & $['d', 'k', 'b']$  \\
+	  r & $['f', 'y', 't']$  \\ 
+		i & $['i', 'l', 't']$  \\
+	  a & $['y', 'f', 'b']$  \\ 
+	  t & $['k', 't', 'b']$  \\
+	  e & $['c', 'b', 'p']$  \\
+	  \hline
+	\end{tabular}
+	\caption{Prediction Tables from both classification systems}
+	\label{table:combined_svm_dtw}
+	\end{center}
+	\end{table}
+
+	Table~\ref{table:combined_svm_dtw} shows both prediction tables from the SVM classifier and DTW classifier. Our combining policy involves taking the \textit{intersection} of the sets for every single row. Intersecting gives us $[['m'], ['y', 'v'], ['t'], ['t'], ['i', 'l'], ['y'], ['a', 'd'], ['y', 't'], ['l'], ['a', 'y'], ['k'], ['c']]$. As such we have several candidate word guesses, an example would be ``mvttiyaylakc" and another would be ``mvltiyatlakc''. With the various permutations of characters which form our guesses for the word to be recognized, we perform the spelling correction step to each permutation in order to see if a valid word can be found. This process for the one of the permutations `mvltiyatlakc' is shown in Table~\ref{table:spellcheck}, and this particular run took 577 steps to eventually find the word `\textbf{multivariate}', which is the result for the word which we were intending to recognize. 
+
 	
-	\subsection{Word Correction}
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
+
+\begin{table}
+\begin{center}	
+
+\begin{tabular}[c]{|c|c|c|}
+  \hline
+  \multicolumn{3}{|c|}{Progress of Spelling Correction}  \\
+  \hline
+  mvltiyatlakc & $\cdots$ & multlvarlake \\
+  mvltivatlakc & $\cdots$ & mulrlvarlake \\
+  mvltiuatlakc & $\cdots$ & muirivatlake \\
+  myltiyatlakc & $\cdots$ & muitivarlake \\
+  multiyatlakc & $\cdots$ & muirivarlake \\
+  mvltiyatlake & $\cdots$ & mulrivatiake \\
+  mvltlyatlakc & $\cdots$ & multivariake \\
+  mvitiyatlakc & $\cdots$ & multivariate \\ 
+  \hline
+\end{tabular}
+\caption{Table showing the spelling correction occuring on 'mvltiyatlakc'}
+ \label{table:spellcheck}
+\end{center}
+\end{table}
+
+
 	
 	\subsection{Example Results}
 	
