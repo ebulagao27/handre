@@ -6,6 +6,7 @@ from numpy import *
 def getCharImages(image, imageName = 'segmented'):
     
   mg = image#Image.open(imgname+".png");	
+  mg.convert('L')
   imgname = imageName
   for y in range(0, mg.size[1]):
     for x in range(0, mg.size[0]):
