@@ -159,9 +159,9 @@ We also obtain the probability scores of each class (signifying how confident we
 	\end{figure}
 	
 	
-	This is illustrated in Figure~\ref{figure:combining_characters}. In this example, the scanned image contains the word `Rat'. The prediction table for the SVM system is shown at the top, while the table for the DTW system is at the bottom. For each character to be guessed, a subset of the top 3 predicted characters are chosen from both tables, so for the first character, we have the set $['R', 'k', 'p']$ and $['R', 'O', 'E']$ from the SVM system and DTW system respectively. Then, the intersection of the subets 
+	This is illustrated in Figure~\ref{figure:combining_characters}. In this example, the scanned image contains the word `Rat'. The prediction table for the SVM system is shown at the top, while the table for the DTW system is at the bottom. For each character to be guessed, a subset of the top 3 predicted characters are chosen from both tables, so for the first character, we have the set $['R', 'k', 'p']$ and $['R', 'O', 'E']$ from the SVM system and DTW system respectively. Then, the intersection of the subets are assigned for first character of `Rat', which is `R'. For the second character, as there are no intersecting characters, we pick the top two predictions to form the subset $['a', 'h']$. The third character `t' follows the same discussion as the first character `R'.
 	
-	After some experimentation, we emperically decided that selecting subset of 2 characters from each probability row was the best policy due to potentially large number of permutations that might result from taking more. In the case where the intersecting set is empty, we picked the top predicted character from each of the tables.
+	After some experimentation, we emperically decided that selecting subset of 3 characters from each prediction table row was the best policy due to potentially large number of permutations that might result from taking more. In the case where the intersecting set is empty, we picked the top predicted character from each of the tables.
 	
 \subsection{Combined Word recognition}
 	\label{subsection:experiments:combinedword}
