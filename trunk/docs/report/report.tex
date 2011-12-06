@@ -132,7 +132,7 @@
 	
 	\paragraph {Modified K-means clustering} Because the level of difference between characters differ by lot, the default method of K-means clustering yielded multiple clusters with different characters in the same cluster, or with the same character split among different clusters. Therefore, we modified the K-means method to fit better into our ICR interface by picking character instances from different computer fonts that approximately separated the characters as much as possible, and using it as a 62-means cluster (26 + 26 upper- and lowercase letters and 10 digits).
 	
-	A problem arises from this configuration, because as shown above, certain character sets such as q and a are virtually indistinguishable from clustering, and will fall into the same cluster. (Experiments showed that the distribution of 'q' was larger than 'a', causing most 'a's to be classified as a 'q') The natural way to solve this would be to have a fewer number of clusters than characters at this point, and use Hidden Markov Models or some other method to guess the word. However, in order to maintain the same interface between DTW and SVM methods, the 62 means cluster was used without merging clusters, and it is sorted out during spelling correction.
+	A problem arises from this configuration, because as shown above, certain character sets such as q and a are virtually indistinguishable from clustering, and will fall into the same cluster. (Experiments showed that the distribution of 'q' was larger than 'a', causing most 'a's to be classified as a 'q') The natural way to solve this would be to have a fewer number of clusters than characters at this point, and use Hidden Markov Models or some other method to guess the word. However, in order to maintain the same interface between DTW and SVM methods, the 62 means cluster was used without merging clusters, and it is sorted out during spelling correction. This results in several of the 62 clusters actually being interchangeable, and actually same clusters with multiple labels. Therefore, the predicted words may not look like actual words, but can be backtraced to predict the original correct word.
 
 	\subsection{Combining Approaches for Word Recognition}
 	\label{subsection:combined}
@@ -141,9 +141,11 @@
 	\subsection{Spelling Correction Using Probalistic Dictionary Model}
 	\label{subsection:spellingcheck}
 	
-	In order to 
+	In order to account for the K-means clusters with different labels explained in section~\ref{subsection:dtw} and increase the accuracy of the final predicted words, we implement a modified version of the spelling corrector introduced in Peter Norvig's web site(***). This implementation of the spelling corrector works by reading a large number of words from a corpus and comparing them with input. Its speed is very fast because it works by generating a small number of possible corrections and matching them against an indexed database of corpus words. The spelling corrector in our system serves two functions.
 	
+	First, it corrects up to two mis-predicted characters in a predicted word. This is to increase the accuracy of predictions even with limited character recognition accuracy. If there are several possible matches, it first chooses the one with the least correct distance. If there is still a conflict, the one with the most occurrences in the corpus is chosen. Therefore, choosing a domain-specific corpus can improve accuracy. We used an entire body of words from a machine learning textbook as a corpus.
 	
+	Second, it understands that the 62-means clusters actually consists of much smaller number of clusters and only applied multiple labels and looks for interchangeable spellings that belong to the same cluster. Such multi-clusters include "e,c" "s,t,f" and "i,l". This creates a large number of possible permutation of corrections, but eventually finds the correct word.	
 	
 \section{Experimental Design}
 \label{section:experiments}
