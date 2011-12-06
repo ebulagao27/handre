@@ -21,7 +21,7 @@ images, labels = mnist.read(alphabets_ord, ignoreList = ignoreList)
 images = array(images)
 labels = array(labels).reshape(1, len(labels))[0]
 
-fonts = ['comicsans', 'dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion' ]
+fonts = ['comicsans', 'dakota', 'showhands', 'danielbd', 'danielbk', 'dandelion', 'daniel' ]
 for font in fonts:
   font_images, font_labels = mnist.read(alphabets_ord, './../../data/', font + '_img.idx', font + '_label.idx', ignoreList=ignoreList)
   font_images = array(font_images)
@@ -91,7 +91,7 @@ for data in x_test:
   scipy.misc.imsave('./img/x_test' + str(i) + '.png', data.reshape(28,28))
   i = i +1
 # create classifier
-classifier = svm.SVC(C=1, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
+classifier = svm.SVC(C=0.01, kernel='linear', degree=3, gamma=0.0, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 #classifier = svm.LinearSVC() #SVC(C=100, kernel='rbf', degree=3, gamma=1e-3, coef0=0.0, shrinking=True, probability=True, tol=0.001)
 
 # train the classifier

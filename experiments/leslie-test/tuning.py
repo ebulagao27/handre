@@ -12,7 +12,9 @@ from numpy import vstack
 from numpy import append
 import prepare_data
 # train the digits 0
-alphabets  = ['a', 'o', 'f', 'u', 'p', 'd', 'a', 't', 'e']#'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E']
+alphabets  = []
+ignoreList = ['0','1','2','3','4','5','6','7','8','9']
+
 alphabets_ord = map(ord, alphabets)
 images, labels = mnist.read(alphabets_ord)
 
@@ -65,7 +67,7 @@ tuned_parameters = [{ 'kernel':['rbf'],
 
                     },
                     { 'kernel':['linear'],
-                      'C' : [1, 10, 100, 1000]
+                      'C' : [0.01, 0.1, 1, 10, 100, 1000]
                     }
                     ]
 scores = [

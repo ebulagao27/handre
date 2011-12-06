@@ -6,7 +6,7 @@ from numpy import array
 from cvxopt import matrix
 from scipy.misc import imsave
 
-alphabets = ['a', 'A']
+alphabets = ['a', 'b', 'c', 'A']
 
 
 # read all the training data and labels
@@ -19,7 +19,7 @@ for i in alphabets:
     img_matrix_1d = images[j,:]
     img_matrix = matrix(img_matrix_1d, (28,28)).trans()
     img_array = array(img_matrix)
-    savePath = './raw/training/'+str(i)+'/'
+    savePath = './raw/training/'+str(ord(i))+'/'
     if not os.path.exists(savePath):
       os.makedirs(savePath)
     imsave(savePath + str(j)+'.png', img_array)
