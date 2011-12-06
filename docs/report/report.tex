@@ -40,7 +40,9 @@
 \maketitle
 
 \begin{abstract}
-	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series method and pixel analysis to perform segmentation of the document invididual words and characters respectively. To perform individual character recognition, we used 2 different approaches -- a kernel-based support vector machine (SVM) classifier and a dynamic time-warping (DTW) method which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
+
+	In this report, we describe Handr\'{e}, a full-system implementation of an experimental approach to intelligent character/word recognition using support vector machines and dynamic time warping. Handr\'{e} is unique in that it attempts to use various computer font data instead of actual handwriting to approximate handwriting recognition. Our system implements three large subsystems. (1) Image segmentation using a time series edge detection method, (2) character recognition using both support vector machines and K-means clustering using dynamic time warping, and (3) word recognition using spelling correction. Our system was tested on professor Leslie Kaelbling's handwritten lecture notes. Even though out system includes various novel and experimental ideas, and suboptimally implemented in many areas due to lack of time and experience, our results showed resonable accuracy and promise.
+	
 \end{abstract}
 
 \newpage
@@ -48,12 +50,18 @@
 \newpage
 \section{Introduction}
 
+	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series edge detection method and pixel analysis to perform segmentation of the document invididual words and characters respectively. To perform individual character recognition, we used 2 different approaches -- a kernel-based support vector machine (SVM) classifier and a K-means clustering method using dynamic time-warping (DTW) which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
 
-\subsection{Contributions}
-	full-system approach
+\subsection{Emphasis}
+	We emphasize the following multiple of Handr\'{e} unique characteristics.
 	
-	feature-dtw
-
+	\paragraph{Feasibility of Font Training Data} We conduct exploratory work on using default computer fonts such as Verdana, Comic Sans MS, and handwriting-like fonts such as angelina and harrison to train our learning methods, instead of collecting a large corpus of handwritten characters for training. Results show that this is a feasible method
+	
+	\paragraph{Multiple Character Predictors} We use both SVM and DTW methods to predict characters, and merge them through a committee based process. Because SVM is more accurate with more training data and DTW is more accurate when there is less training data, our implementation works at a reasonable accuracy at various amounts of training data.
+	
+	\paragraph{Full-System Approach} Instead of implementing a subset of a complete working system, we attempted to implement the entire system stack, up to the point where it was actually usable. Because there were multiple cross-checking functionality such as the committee based merging and spelling correction, we could obtain a certain level of utility even when some of the individual functionality was incomplete.
+	
+	\paragraph{Feature-dtw} The K-means clustering method goes through multiple, each a tree in a forest of less-accurate classifiers. The first classifier is a novel variant of multi-dimendional dynamic time warping named feature-dtw, which generates two 'feature' time series by scanning the pixel layout according to the dimensions, and adding the distance between the two pairs. This method almost always assures that the correct character is included in the top ten or so of possible characters, speeding up all subsequent classifiers by multiple orders of magnitude by reducing the problem space.
 
 \section{Segmentation}
 \label{section:segmentation}
@@ -115,9 +123,16 @@
 
 	\subsection{K-means Clustering using Dynamic Time-Warping}
 	\label{subsection:dtw}
-	The second method used for character recognition is K-means clustering, using modified dynamic time warping as a distance metric. K-means clustering is an efficient method to use when classifying an input to one of the K possible clusters, which is a good fit to character recognition. Dynamic time warping (DTW) is a dynamic programming method to calculate the similarity between two time series by warping each time series into various ways to discover the warp configuration that makes the two series most similar. This is also a good fit for character recognition because characters are generally similarly shaped, but it is stretched or warped in various ways.
+	The second method used for character recognition is K-means clustering, using modified dynamic time warping as a distance metric. K-means clustering is an efficient method to use when classifying an input to one of the K possible clusters, which is a good fit to character recognition. Dynamic time warping (DTW) is a dynamic programming method to calculate the similarity between two time series by warping each time series into various ways to discover the warp configuration that makes the two series most similar. The difference between this method and normal euclidian distance can be seen in Figure~\ref{figure:dtw} This is also a good fit for character recognition because characters are generally similarly shaped, but it is stretched or warped in various ways. A window of ranges of warping allowed can be specified to aid in accuracy and speed.
 	
-	\paragraph{Modified Dynamic Time Warping} We were unable to use multi-dimentional dynamic time warping for our goals, which is a common form of modified dynamic time warping used for image and texture analysis. Multi-dimentional dynamic time warping is done by taking the euclidian distance between each possible set of two rows, from both images and using dynamic time warping on it. However, this method could not be used because of two reasons. First, character sizes were often very different, making euclidian distance between rows not a very accurate measure. Second, it took a prohibitely long time.
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[scale=0.7]{dtw.eps}
+		\label{figure:dtw}
+		\caption{euclidian distance and dynamic time warping}
+		\end{figure}
+	
+	\paragraph{Modified Dynamic Time Warping} We were unable to use multi-dimentional dynamic time warping for our goals, which is a common form of modified dynamic time warping used for image and texture analysis. Multi-dimentional dynamic time warping is done by taking the euclidian distance between each possible set of two rows, from both images and using dynamic time warping on it. However, this method could not be used because of two reasons. First, character sizes were often very different, making euclidian distance between rows not a very accurate measure. Second, it took a prohibitively long time.
 
 	\begin{figure}[htbp!]
 		\centering
@@ -206,8 +221,23 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	\subsection{K-means Clustering using DTW}
 	\label{subsection:experiments:dtw}
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
 	
+	After multiple experiments and cross validation, a 62 cluster means were chosen as a mixture of characters from fonts 'Verdana', 'Comic Sans MS' and a handwriting font 'angelina', all of which are freely available from the web. And among the several possible multi-clusters that have been discovered, the following five has been decided upon as a feasible compromise between accuracy and speed loss that results from the increasing number of possible permutations that arises from introducing more multi-clusters. This information is used by the spelling corrector to guess the possible original word.
+	
+	\begin{itemize}
+		\item List of Chosen Multi-Clusters
+		\begin {itemize}
+			\item C1 = [a, q]
+			\item C2 = [u, v, y]
+			\item C3 = [c, e, f, t, r]
+			\item C4 = [i, l]
+			\item C5 = [h, n]
+		\end {itemize}
+	\end {itemize}
+	
+	For the dynamic time warping method, a window of 8 was used to specify the maximum amount of pixels each pixel can be warped, both for feature DTW and multi-dimensional DTW.
+	
+
 	\subsection{Combined Character Recognition}
 	\label{subsection:experiments:combinedchar}
 		
@@ -231,6 +261,7 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	Following on our example from the previous section, we would have two potential guesses for the word -- `Rat' and `Rht'. In this case, if the spelling checker runs on the former, it would give a successful result and return, without a need to consider the second case. However, imagine the scenario that the resulting words were instead `Ret' and `Rat. In this case, the spelling checker would note that neither words exist, but attempt to propose a possible solution, which would be `Rat'. This provides an additional measure to contribute some form or prior knowledge into helping our classifiers make a classification, which both initially got wrong, eventually make a correct prediction.
 	
+	Because 'a' is part of the multi-cluster C1 and 'h' is part of the multi-cluster C5 introduced in section~\ref{subsection:experiments:dtw}, the spelling corrector would also check for possible spellings of 'Rqt' and 'Rnt'. However, because the corrector would already have returned with 'Rat' this path will not be taken in this example.	
 	
 \section{Results \& Analysis}
 \label{section:results}
@@ -250,6 +281,41 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	\subsection{Word Correction}
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque posuere molestie metus. Suspendisse tellus urna, porta sit amet rutrum eu, tristique quis urna. Donec varius pharetra purus, eget mollis tortor ornare vel. Nullam sagittis tellus id dui placerat eget congue libero facilisis. Donec mattis sagittis lectus, eget porta quam facilisis vel. Vestibulum non urna ante, nec mattis mauris. Nulla sit amet interdum eros. Nam congue lacinia nulla, vitae aliquet nisl tincidunt vel. Morbi gravida bibendum ipsum, at accumsan nisl suscipit ac. Sed accumsan cursus tortor a faucibus. Phasellus tempus, orci ac lacinia hendrerit, dui justo accumsan mi, congue dapibus massa turpis at lectus. Cras a tellus nisi. Aliquam vitae dolor id nunc lacinia fermentum et sit amet metus. Nullam viverra ante eu mauris ultrices nec adipiscing lectus dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis commodo lacus, eget bibendum risus lobortis nec.
+	
+	\subsection{Example Results}
+	
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{comic_comp.eps}
+	\caption{Computer-generated testing data}
+	\label{figure:comic_comp}
+	\end{figure}
+	completely accurate
+	
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{number.eps}
+	\caption{Testing data of digits}
+	\label{figure:number}
+	\end{figure}
+	first 7 and second 3 was each recognized as 1 and 5.
+	Important because spelling correction cannot be applied to digits
+	
+	
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{machine_camb.eps}
+	\caption{Handwritten text captured using webcam}
+	\label{figure:machine_camb}
+	\end{figure}
+	
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{machine_cam.eps}
+	\caption{Preprocessed handwritten text}
+	\label{figure:machine_cam}
+	\end{figure}
+	got 'mqchinc' on top
 	
 \section{Conclusions \& Future Work}
 \label{section:conclusion}
