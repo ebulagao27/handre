@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (Web2C 2011) (format=pdflatex 2011.12.5)  6 DEC 2011 03:03
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (Web2C 2011) (format=pdflatex 2011.12.5)  6 DEC 2011 03:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -327,84 +327,97 @@ LaTeX Info: Redefining \nameref on input line 38.
 [1
 
 {c:/usr/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-No file report.toc.
+(./report.toc [2])
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
-[2]
+ [3]
+Package epstopdf Info: Source file: <word_segmentation.eps>
+(epstopdf)                    date: 2011-12-06 03:20:28
+(epstopdf)                    size: 7808 bytes
+(epstopdf)             Output file: <word_segmentation-eps-converted-to.pdf>
+(epstopdf)                    date: 2011-12-06 03:20:44
+(epstopdf)                    size: 5894 bytes
+(epstopdf)             Command: <repstopdf --outfile=word_segmentation-eps-conv
+erted-to.pdf word_segmentation.eps>
+(epstopdf)             \includegraphics on input line 70.
+Package epstopdf Info: Output file is already uptodate.
 
-LaTeX Warning: Reference `figure:word_segmentation' on page 3 undefined on inpu
-t line 66.
+<word_segmentation-eps-converted-to.pdf, id=94, 425.59pt x 57.21375pt>
+File: word_segmentation-eps-converted-to.pdf Graphic file (type pdf)
 
-<word_segmentation.png, id=19, 399.74344pt x 53.44969pt>
-File: word_segmentation.png Graphic file (type png)
+<use word_segmentation-eps-converted-to.pdf>
+Package pdftex.def Info: word_segmentation-eps-converted-to.pdf used on input l
+ine 70.
+(pdftex.def)             Requested size: 330.42033pt x 44.42224pt.
+ [4 <./word_segmentation-eps-converted-to.pdf>] [5] [6]
+Package epstopdf Info: Source file: <xyfeatures.eps>
+(epstopdf)                    date: 2011-12-06 03:21:21
+(epstopdf)                    size: 6369 bytes
+(epstopdf)             Output file: <xyfeatures-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=xyfeatures-eps-converted-t
+o.pdf xyfeatures.eps>
+(epstopdf)             \includegraphics on input line 124.
+runsystem(repstopdf --outfile=xyfeatures-eps-converted-to.pdf xyfeatures.eps)..
+.executed safely (allowed).
 
-<use word_segmentation.png>
-Package pdftex.def Info: word_segmentation.png used on input line 70.
-(pdftex.def)             Requested size: 330.42033pt x 44.18297pt.
- [3 <./word_segmentation.png>] [4] [5]
-<xyfeatures.png, id=58, 184.43906pt x 163.3603pt>
-File: xyfeatures.png Graphic file (type png)
- <use xyfeatures.png>
-Package pdftex.def Info: xyfeatures.png used on input line 124.
-(pdftex.def)             Requested size: 129.10645pt x 114.35143pt.
+Package epstopdf Info: Result file: <xyfeatures-eps-converted-to.pdf>
+(epstopdf)                    date: 2011-12-06 03:21:31
+(epstopdf)                    size: 5273 bytes.
 
+<xyfeatures-eps-converted-to.pdf, id=122, 196.735pt x 174.6525pt>
+File: xyfeatures-eps-converted-to.pdf Graphic file (type pdf)
 
-LaTeX Warning: Reference `figure:xyfeatures' on page 6 undefined on input line 
-129.
-
-[6 <./xyfeatures.png>] [7]
+<use xyfeatures-eps-converted-to.pdf>
+Package pdftex.def Info: xyfeatures-eps-converted-to.pdf used on input line 124
+.
+(pdftex.def)             Requested size: 137.71355pt x 122.2559pt.
+ [7 <./xyfeatures-eps-converted-to.pdf>]
+[8]
 Package epstopdf Info: Source file: <training_data.eps>
 (epstopdf)                    date: 2011-12-06 02:50:58
 (epstopdf)                    size: 18105 bytes
 (epstopdf)             Output file: <training_data-eps-converted-to.pdf>
+(epstopdf)                    date: 2011-12-06 03:03:09
+(epstopdf)                    size: 7766 bytes
 (epstopdf)             Command: <repstopdf --outfile=training_data-eps-converte
 d-to.pdf training_data.eps>
-(epstopdf)             \includegraphics on input line 156.
-runsystem(repstopdf --outfile=training_data-eps-converted-to.pdf training_data.
-eps)...executed safely (allowed).
-
-Package epstopdf Info: Result file: <training_data-eps-converted-to.pdf>
-(epstopdf)                    date: 2011-12-06 03:03:09
-(epstopdf)                    size: 7766 bytes.
-
-<training_data-eps-converted-to.pdf, id=79, 453.695pt x 34.1275pt>
+(epstopdf)             \includegraphics on input line 160.
+Package epstopdf Info: Output file is already uptodate.
+ <training_data-eps-converted-to.pdf, id=146, 453.695pt x 34.1275pt>
 File: training_data-eps-converted-to.pdf Graphic file (type pdf)
 
 <use training_data-eps-converted-to.pdf>
 Package pdftex.def Info: training_data-eps-converted-to.pdf used on input line 
-156.
+160.
 (pdftex.def)             Requested size: 377.62633pt x 28.40547pt.
 Package epstopdf Info: Source file: <multivariate_test.eps>
 (epstopdf)                    date: 2011-12-06 02:50:58
 (epstopdf)                    size: 10440 bytes
 (epstopdf)             Output file: <multivariate_test-eps-converted-to.pdf>
+(epstopdf)                    date: 2011-12-06 03:03:11
+(epstopdf)                    size: 5095 bytes
 (epstopdf)             Command: <repstopdf --outfile=multivariate_test-eps-conv
 erted-to.pdf multivariate_test.eps>
-(epstopdf)             \includegraphics on input line 167.
-runsystem(repstopdf --outfile=multivariate_test-eps-converted-to.pdf multivaria
-te_test.eps)...executed safely (allowed).
+(epstopdf)             \includegraphics on input line 171.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <multivariate_test-eps-converted-to.pdf>
-(epstopdf)                    date: 2011-12-06 03:03:11
-(epstopdf)                    size: 5095 bytes.
-
-<multivariate_test-eps-converted-to.pdf, id=83, 174.6525pt x 37.13875pt>
+<multivariate_test-eps-converted-to.pdf, id=150, 174.6525pt x 37.13875pt>
 File: multivariate_test-eps-converted-to.pdf Graphic file (type pdf)
 
 <use multivariate_test-eps-converted-to.pdf>
 Package pdftex.def Info: multivariate_test-eps-converted-to.pdf used on input l
-ine 167.
+ine 171.
 (pdftex.def)             Requested size: 236.01555pt x 50.19011pt.
- [8 <./training_data-eps-converted-to.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 180.
+ [9 <./training_data-eps-converted-to.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 184.
 
  (c:/usr/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 180.
- [9 <./multivariate_test-eps-converted-to.pdf>]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 184.
+ [10 <./multivariate_test-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <combined_predictions.eps>
 (epstopdf)                    date: 2011-12-06 00:59:45
 (epstopdf)                    size: 48361 bytes
@@ -414,38 +427,31 @@ Package epstopdf Info: Source file: <combined_predictions.eps>
 (epstopdf)                    size: 18865 bytes
 (epstopdf)             Command: <repstopdf --outfile=combined_predictions-eps-c
 onverted-to.pdf combined_predictions.eps>
-(epstopdf)             \includegraphics on input line 205.
+(epstopdf)             \includegraphics on input line 209.
 Package epstopdf Info: Output file is already uptodate.
 
-<combined_predictions-eps-converted-to.pdf, id=124, 287.0725pt x 256.96pt>
+<combined_predictions-eps-converted-to.pdf, id=181, 287.0725pt x 256.96pt>
 File: combined_predictions-eps-converted-to.pdf Graphic file (type pdf)
 
 <use combined_predictions-eps-converted-to.pdf>
 Package pdftex.def Info: combined_predictions-eps-converted-to.pdf used on inpu
-t line 205.
+t line 209.
 (pdftex.def)             Requested size: 236.01555pt x 211.26532pt.
- [10 <./combined_predictions-eps-converted-to.pdf>] [11] [12] [13] [14]
+ [11 <./combined_predictions-eps-converted-to.pdf>] [12] [13] [14] [15]
 No file report.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 290.
-[15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 290.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 294.
+[16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 294.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 290.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 290.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 290.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 294.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 294.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 294.
  ) 
 Here is how much of TeX's memory you used:
- 5838 strings out of 493633
- 84929 string characters out of 3145073
- 172026 words of memory out of 3000000
- 9021 multiletter control sequences out of 15000+200000
+ 5839 strings out of 493633
+ 85080 string characters out of 3145073
+ 172219 words of memory out of 3000000
+ 9020 multiletter control sequences out of 15000+200000
  12663 words of font info for 45 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  29i,12n,24p,1290b,383s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -462,10 +468,10 @@ c/amsfonts/cm/cmr8.pfb><c:/usr/texlive/2011/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb><c:/usr/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy8.pfb><c:/usr/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti
 12.pfb>
-Output written on report.pdf (15 pages, 207864 bytes).
+Output written on report.pdf (16 pages, 214053 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 198 compressed objects within 2 object streams
- 67 named destinations out of 1000 (max. 500000)
+ 291 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 68 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
