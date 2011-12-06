@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2011.9.24)  6 DEC 2011 02:46
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2011.9.24)  6 DEC 2011 02:52
 entering extended mode
 **report.tex
 (C:\handre\docs\report\report.tex
@@ -314,12 +314,12 @@ File: combined_predictions.eps Graphic file (type eps)
 
 <combined_predictions.eps> [10] [11] [12] [13]
 No file report.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 254.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 253.
 [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 254.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 253.
  (C:\handre\docs\report\report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 254.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 254.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 253.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 253.
  ) 
 Here is how much of TeX's memory you used:
  5400 strings out of 494046
@@ -330,4 +330,4 @@ Here is how much of TeX's memory you used:
  715 hyphenation exceptions out of 8191
  29i,12n,27p,1291b,383s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on report.dvi (14 pages, 78336 bytes).
+Output written on report.dvi (14 pages, 78272 bytes).
