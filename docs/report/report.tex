@@ -114,7 +114,15 @@ In this section, we desribe the experimental design which we undertook in order 
 	For the purpose of our project, we tried to locate a resource of training data for alphabets which was commonly available. Several repositories containing data were either unsuitable or was paid-only. More importantly, we wanted to show-case that system could make use of a generic database for its training data, and not have to resort in having a particular target domain to have to first provide us with both a vast number of examples, but also go through the tedious task of hand-labelling them though it given the resources and time, it might be a possible way to improve the system (Section~\ref{section:conclusion}). As such, we decided to using readily available TrueType fonts as our training data.
 			
 		\subsubsection{Using Font Images as Training Sets}
-		We made use of fonts for our training data by randomly picking a set of handwritten fonts which are freely available on the web (see Appendix~\ref{appendix:data:font} for the list and samples.) In order to normalize the characters, we resized each character to fit as a 28x28 white-on-black square image\footnote{We referenced the dimensions used by the MNIST database, and serves as a reference point for common handwritten character sizes.}. The character is then set to black-and-white mode, in which the pixel values are either 0 (black) or 255 (white). For each character in the font, we also created additional samples of the character image by rotating the characters by an angle between [-16\degree, +16\degree]. Thus, each training sample can be viewed as a 1x784 vector of pixel values. 	
+		
+		\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{training_data.eps}
+		\label{figure:training_data}
+		\caption{17 different rotations for each alphabet character}
+		\end{figure}
+		
+		We made use of fonts for our training data by randomly picking a set of handwritten fonts which are freely available on the web (see Appendix~\ref{appendix:data:font} for the list and samples.) In order to normalize the characters, we resized each character to fit as a 28x28 white-on-black square image\footnote{We referenced the dimensions used by the MNIST database, and serves as a reference point for common handwritten character sizes.}. The character is then set to black-and-white mode, in which the pixel values are either 0 (black) or 255 (white). For each character in the font, we also created additional samples of the character image by rotating the characters by an angle between [-16\degree, +16\degree]. Thus, each training sample can be viewed as a 1x784 vector of pixel values. Figure~\ref{figure:training_data} shows an example of a font character which has been normalized and its various rotations.	
 		
 		\subsubsection{Training Parameters}
 		In order to be train the best classifier for our recognition task, we varied the parameters and kernels used and performed cross-validation in order to select the best performing one. The following list describes the various parameters and choices we used. We optimised the parameters based on the precision score and recall score. Section~\ref{subsubsection:analysis:svm} shows the results of this experiment and the final values which we made use of.
