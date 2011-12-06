@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 21:20
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  5 DEC 2011 21:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -339,13 +339,13 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 [6] [7] [8] [9] [10] [11]
 No file report.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 216.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
 [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 216.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 216.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 216.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 216.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 218.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 218.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
  ) 
 Here is how much of TeX's memory you used:
  5790 strings out of 493633
@@ -368,7 +368,7 @@ exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texl
 ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
 ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
 /2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (12 pages, 169387 bytes).
+Output written on report.pdf (12 pages, 169392 bytes).
 PDF statistics:
  184 PDF objects out of 1000 (max. 8388607)
  155 compressed objects within 2 object streams
