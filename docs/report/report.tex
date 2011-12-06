@@ -112,14 +112,8 @@
 
 	where $x_{i}$ represents each training data point, with $y_{i}$ being its corresponding target classification. $\mathbf{\theta}$ is the model, or parameter, of the classifier with offset $\theta_{0}$, while C and $\xi$ represent the penalty and slack variables respectively.
 	
-	\subsubsection{Supporting Multiple Classes}
-	In our project, we are interested in the use of SVMs to classify individual characters based the a given vector input of pixel values. Extending SVMs to support multiple target classifications requires us to train multiple binary classifiers, one for each individual target character. Given an input vector, each classifier would give a possible classification, and we then employ \textbf{voting} as a way of deciding the best classification result for our data. The common voting strategies to decide on a classification described as follows.
-
-	\paragraph{One-versus-one}
-	In one-versus-one voting, the idea is to fit a classifier for each pair of classes, and when it comes to making the prediction, we select the class with the most number of votes. 
-		
-	\paragraph{One-versus-rest}
-	In one-versus-rest voting, each character has a classifier which is fit to it. When making the predicition, the class with the highest classification output is chosen in a \textit{winner-takes-all} strategy.
+	\paragraph{Supporting Multiple Classes}
+	In our project, we are interested in the use of SVMs to classify individual characters based the a given vector input of pixel values. Extending SVMs to support multiple target classifications requires us to train multiple binary classifiers, one for each individual target character. Given an input vector, each classifier would give a possible classification, and we then employ \textbf{voting} as a way of deciding the best classification result for our data. The common voting strategies to decide on a classification described as follows. 	In \textbf{one-versus-one} voting, the idea is to fit a classifier for each pair of classes, and when it comes to making the prediction, we select the class with the most number of votes. In \textbf{one-versus-rest} voting, each character has a classifier which is fit to it. When making the predicition, the class with the highest classification output is chosen in a \textit{winner-takes-all} strategy.
 
 	\subsection{K-means Clustering using Dynamic Time-Warping}
 	\label{subsection:dtw}
@@ -245,7 +239,7 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{combined_predictions.eps}
+	\includegraphics[width=0.6\textwidth]{combined_predictions.eps}
 	\caption{Illustrating how predictions from both systems are combined.}
 	\label{figure:combining_characters}
 	\end{figure}
