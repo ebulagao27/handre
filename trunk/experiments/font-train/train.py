@@ -7,7 +7,7 @@ from sklearn import svm, metrics
 from sklearn.cross_validation import LeaveOneOut
 
 # train the digits 0
-alphabets  = []
+alphabets  = ['a', 'A']
 
 alphabets_ord = map(ord, alphabets)
 images, labels = mnist.read(alphabets_ord)
