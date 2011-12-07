@@ -1,0 +1,300 @@
+harrison.ttf                           ~
+have.png
+
+Chong-U@C-U /cygdrive/c/handre/experiments/combined
+$ python test.py
+getting svmlist ...
+skipping capital letterA
+skipping capital letterB
+skipping capital letterC
+skipping capital letterD
+skipping capital letterE
+skipping capital letterF
+skipping capital letterG
+skipping capital letterH
+skipping capital letterI
+skipping capital letterJ
+skipping capital letterK
+skipping capital letterL
+skipping capital letterM
+skipping capital letterN
+skipping capital letterO
+skipping capital letterP
+skipping capital letterQ
+skipping capital letterR
+skipping capital letterS
+skipping capital letterT
+skipping capital letterU
+skipping capital letterV
+skipping capital letterW
+skipping capital letterX
+skipping capital letterY
+skipping capital letterZ
+skipping capital letterA
+skipping capital letterB
+skipping capital letterC
+skipping capital letterD
+skipping capital letterE
+skipping capital letterF
+skipping capital letterG
+skipping capital letterH
+skipping capital letterI
+skipping capital letterJ
+skipping capital letterK
+skipping capital letterL
+skipping capital letterM
+skipping capital letterN
+skipping capital letterO
+skipping capital letterP
+skipping capital letterQ
+skipping capital letterR
+skipping capital letterS
+skipping capital letterT
+skipping capital letterU
+skipping capital letterV
+skipping capital letterW
+skipping capital letterX
+skipping capital letterY
+skipping capital letterZ
+skipping capital letterA
+skipping capital letterB
+skipping capital letterC
+skipping capital letterD
+skipping capital letterE
+skipping capital letterF
+skipping capital letterG
+skipping capital letterH
+skipping capital letterI
+skipping capital letterJ
+skipping capital letterK
+skipping capital letterL
+skipping capital letterM
+skipping capital letterN
+skipping capital letterO
+skipping capital letterP
+skipping capital letterQ
+skipping capital letterR
+skipping capital letterS
+skipping capital letterT
+skipping capital letterU
+skipping capital letterV
+skipping capital letterW
+skipping capital letterX
+skipping capital letterY
+skipping capital letterZ
+skipping capital letterA
+skipping capital letterB
+skipping capital letterC
+skipping capital letterD
+skipping capital letterE
+skipping capital letterF
+skipping capital letterG
+skipping capital letterH
+skipping capital letterI
+skipping capital letterJ
+skipping capital letterK
+skipping capital letterL
+skipping capital letterM
+skipping capital letterN
+skipping capital letterO
+skipping capital letterP
+skipping capital letterQ
+skipping capital letterR
+skipping capital letterS
+skipping capital letterT
+skipping capital letterU
+skipping capital letterV
+skipping capital letterW
+skipping capital letterX
+skipping capital letterY
+skipping capital letterZ
+skipping capital letterA
+skipping capital letterB
+skipping capital letterC
+skipping capital letterD
+skipping capital letterE
+skipping capital letterF
+skipping capital letterG
+skipping capital letterH
+skipping capital letterI
+skipping capital letterJ
+skipping capital letterK
+skipping capital letterL
+skipping capital letterM
+skipping capital letterN
+skipping capital letterO
+skipping capital letterP
+skipping capital letterQ
+skipping capital letterR
+skipping capital letterS
+skipping capital letterT
+skipping capital letterU
+skipping capital letterV
+skipping capital letterW
+skipping capital letterX
+skipping capital letterY
+skipping capital letterZ
+len(big_table)=6
+len=52[('R', -1.5325590203420896), ('k', -2.2605415715616535), ('P', -2.44975833
+5301818), ('H', -2.5353069087309548), ('Q', -2.669363692862873), ('N', -2.771322
+5480974759), ('v', -2.9705689415556331), ('h', -3.0449543510345873), ('V', -3.51
+78163035786443), ('A', -3.8631711142510756), ('q', -3.9116858401676295), ('d', -
+4.2978197250031158), ('b', -4.300035781220223), ('u', -4.4265896055854572), ('F'
+, -4.4834094269907476), ('z', -4.5623054879464995), ('D', -4.663596072213843), (
+'U', -4.7261667560205538), ('B', -4.7996870200512971), ('y', -4.8365221786305925
+), ('E', -4.8409234206340406), ('K', -4.8965780459234596), ('p', -4.930583442370
+6072), ('W', -4.9397783609385506), ('x', -5.0169745909318015), ('Y', -5.15768004
+77822502), ('Z', -5.3737692244113369), ('f', -5.4604437168269042), ('G', -5.4883
+948596492074), ('X', -5.51049830709049), ('i', -5.5143024574292312), ('a', -5.64
+78322446407967), ('w', -5.6892281339757682), ('L', -5.7209071154551436), ('S', -
+5.7314033165939104), ('g', -5.794864392921772), ('e', -5.8173327062390845), ('n'
+, -5.852131061517003), ('r', -5.9201349022465211), ('M', -5.9374736090612137), (
+'j', -5.9377729958475269), ('O', -5.9729950465028097), ('o', -5.9816138126939622
+), ('m', -6.0013314700274112), ('J', -6.0902390103168251), ('t', -6.109960342265
+8229), ('c', -6.1150902329090773), ('T', -6.1232837255363641), ('C', -6.12363249
+72058043), ('s', -6.2632763062089278), ('l', -6.296037631268824), ('I', -6.46325
+45651071904)]
+len=26[('q', -2.7454411284154601), ('k', -2.7494980716264212), ('y', -2.84684625
+31341974), ('t', -2.9985626847510192), ('r', -3.1201494490174682), ('x', -3.3383
+226496214067), ('h', -3.7649526859190776), ('f', -3.8588072289121609), ('a', -3.
+9681440823330951), ('m', -4.3432718079239674), ('i', -4.6977592366173679), ('l',
+ -4.7632048172971899), ('b', -4.7731040359407908), ('e', -5.1318543324374595), (
+'p', -5.1704825987979701), ('w', -5.2438381887782812), ('j', -5.3007509824730787
+), ('v', -5.3676590803935635), ('z', -5.4040410427745753), ('s', -5.414000764853
+8235), ('d', -5.4223252684359764), ('n', -5.4556818437681089), ('c', -5.52250641
+03484574), ('o', -5.6185779851699333), ('u', -5.8587556652296717), ('g', -5.8664
+571802260763)]
+len=26[('t', -0.47622340962294141), ('f', -2.5951505041232248), ('k', -3.0506734
+661136936), ('q', -4.0720134276682032), ('l', -4.3837247134521355), ('x', -4.495
+7010704104396), ('p', -4.7669284045821696), ('y', -4.8835780005859419), ('i', -5
+.0122691077326254), ('r', -5.4937474548436294), ('b', -5.653639000368722), ('z',
+ -5.6675192820891018), ('m', -5.693632194091653), ('w', -5.721297187162846), ('e
+', -6.0420427826445238), ('s', -6.0958668683419104), ('j', -6.3003184869051294),
+ ('h', -6.496891604838873), ('v', -6.5740871479262832), ('g', -6.787917909798712
+1), ('d', -6.8785944348158168), ('n', -6.9517560960947113), ('c', -7.08843564552
+66007), ('a', -7.0919095438710338), ('o', -7.4686838196872491), ('u', -7.8111140
+526930924)]
+len=26[('h', -0.28707588195049116), ('k', -2.284830310116063), ('b', -4.52018031
+47540973), ('x', -5.4518681808887797), ('v', -5.6844294979695276), ('d', -5.9593
+27478613802), ('s', -6.0516736242816975), ('q', -6.2626649395871636), ('u', -6.3
+547558357885769), ('e', -6.733241708432347), ('n', -6.7507527698508021), ('z', -
+7.42863435994754), ('a', -7.617355020665256), ('w', -7.6408126563810592), ('c',
+-7.8419200623421377), ('m', -8.1909639780846391), ('o', -8.2562420223749342), ('
+y', -8.2629046887274491), ('j', -8.282625351266498), ('t', -8.3040645482073803),
+ ('f', -8.3085968362098601), ('i', -8.3137239894202786), ('r', -8.65676049457172
+96), ('l', -9.0933082479705423), ('p', -9.1761822986848252), ('g', -9.3515197589
+486991)]
+len=26[('r', -1.3882733629860113), ('t', -1.8903689923400762), ('y', -2.72672144
+6167931), ('f', -3.0479338853859383), ('x', -3.0757517256980824), ('k', -3.37806
+55827780679), ('q', -3.5081770202729508), ('l', -4.0681795326980552), ('b', -4.2
+800746147032598), ('p', -4.3844196115807632), ('i', -4.723827571027341), ('h', -
+4.7414592236803168), ('m', -5.13284334281889), ('j', -5.257293531006562), ('w',
+-5.3059079990775029), ('g', -5.4391881177525185), ('n', -5.6379605021139918), ('
+s', -5.6827517720778564), ('a', -5.6917522889207248), ('z', -5.9359056468394034)
+, ('v', -5.9427504449165607), ('d', -5.9737158389544485), ('c', -6.0951259959446
+373), ('e', -6.1204028641264712), ('o', -6.1423145025463555), ('u', -6.457711735
+7143585)]
+len=26[('t', -1.2717082538418234), ('r', -2.1136003216010915), ('f', -2.82239484
+11606092), ('y', -2.8356729390816233), ('l', -3.3468619938287949), ('k', -3.6147
+290936760421), ('x', -3.6262709252329817), ('p', -3.6666746063137388), ('q', -4.
+4101085066345727), ('i', -4.6740296762620765), ('m', -4.8315743630922707), ('b',
+ -4.9749580527616377), ('h', -5.098775837933573), ('g', -5.1171122332976733), ('
+n', -5.3337673390893894), ('w', -5.4115075997192559), ('z', -5.4134721518903026)
+, ('s', -5.4136523946034067), ('j', -5.6260611526018343), ('e', -5.6264599383954
+339), ('a', -5.7508100417947903), ('c', -5.9059162514443173), ('v', -6.112060846
+6519748), ('o', -6.198040403514316), ('d', -6.2265805144546027), ('u', -6.596366
+8880488342)]
+getting dtwlist ...
+R 0.383050501231
+O 0.539822162969
+E 0.59116788885
+k 0.594243931677
+o 1.17137791894
+B 1.21044507134
+K 1.74090067059
+S 1.98662205013
+s 2.08103672502
+G 3.22222222222
+J 3.88737144325
+
+h 0.101540967874
+k 0.109272315656
+d 0.260778723893
+b 0.271357402818
+u 0.590284632432
+p 0.839404740096
+c 1.30034380403
+n 1.62777615023
+o 1.76004252474
+j 2.04353718006
+a 3.18934911243
+
+y 0.0708199380001
+t 0.116899962497
+b 0.207975576916
+q 0.213526562889
+k 0.313296498981
+f 0.346014373668
+v 0.420923877946
+r 0.955069296636
+h 2.10366653362
+n 2.4522355256
+o 3.06611570248
+
+h 0.0471587282681
+k 0.0557829536892
+b 0.287153219073
+p 0.597604985208
+u 0.799968228639
+j 0.999947078809
+c 1.17667689638
+d 2.22578929356
+o 3.26280686318
+n 3.75586194076
+a 3.76143051154
+
+f 0.0773785364028
+p 0.0881828045747
+k 0.104303446434
+y 0.256682012029
+c 0.357142918762
+b 0.396957753526
+d 1.21748489902
+h 1.6686243847
+g 2.04369135145
+q 2.11073498208
+e 3.28125
+
+t 0.0164806678537
+y 0.0629461831038
+q 0.136866953481
+p 0.139804791802
+v 0.196677126462
+d 0.20336840799
+b 0.409397201348
+r 0.591441679202
+c 0.780464224125
+u 1.89062997115
+o 5.0
+
+svmlist=[['R', 'k', 'P'], ['q', 'k', 'y'], ['t', 'f', 'k'], ['h', 'k', 'b'], ['r
+', 't', 'y'], ['t', 'r', 'f']]
+dtwlist=[['R', 'O', 'E'], ['h', 'k', 'd'], ['y', 't', 'b'], ['h', 'k', 'b'], ['f
+', 'p', 'k'], ['t', 'y', 'q']]
+
+
+
+
+
+
+intersection_list=[['R'], ['k'], ['t'], ['h', 'b', 'k'], ['r', 'f'], ['t']]
+union_list=[['P', 'R', 'E', 'k', 'O'], ['q', 'd', 'h', 'y', 'k'], ['b', 't', 'f'
+, 'y', 'k'], ['b', 'h', 'k'], ['p', 'r', 't', 'f', 'y', 'k'], ['q', 'r', 't', 'f
+', 'y']]
+possibilities=11250
+
+Chong-U@C-U /cygdrive/c/handre/experiments/combined
+$
+
+Chong-U@C-U /cygdrive/c/handre/experiments/combined
+$ 7
