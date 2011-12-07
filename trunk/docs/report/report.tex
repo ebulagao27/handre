@@ -176,7 +176,8 @@ In this section, we desribe the experimental design which we undertook in order 
 		We made use of fonts for our training data by randomly picking a set of handwritten fonts which are freely available on the web (see Appendix~\ref{appendix:data:font} for the list and samples.) In order to normalize the characters, we resized each character to fit as a 28x28 white-on-black square image\footnote{We referenced the dimensions used by the MNIST database, and serves as a reference point for common handwritten character sizes.}. The character is then set to black-and-white mode, in which the pixel values are either 0 (black) or 255 (white). For each character in the font, we also created additional samples of the character image by rotating the characters by an angle between [-16\degree, +16\degree]. Thus, each training sample can be viewed as a 1x784 vector of pixel values. Figure~\ref{figure:training_data} shows an example of a font character which has been normalized and its various rotations.	
 	
 	\subsubsection{Testing on Handwritten Text}
-		
+	\label{subsubsection:experiments:testing}	
+	
 		\begin{figure}[htbp!]
 		\centering
 		\includegraphics[width=0.5\textwidth]{multivariate_test.eps}
@@ -188,7 +189,7 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 	\subsection{Recognizing Alphabet Characters using Multi-Class SVMs}
 	\label{subsection:experiments:svm}
-
+	
 		In order to be train the best classifier for our recognition task, we varied the parameters and kernels used and performed cross-validation in order to select the best performing one. The following list describes the various parameters and choices we used
 
 		\begin{itemize}
@@ -259,13 +260,15 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 \section{Results \& Analysis}
 \label{section:results}
-	In this section, we provide the results from the experiments conducted for the project which were explained in Section~\ref{section:experiments}. 
-	n this section, we provide the results from the experiments conducted for the project which were explained in Section~\ref{section:experiments}. 
-	n this section, we provide the results from the experiments conducted for the project which were explained in Section~\ref{section:experiments}. 
-	n this section, we provide the results from the experiments conducted for the project which were explained in Section~\ref{section:experiments}. 
+In this section, we cover the performance of the system as described by the experimental. In Section~\ref{subsubsection:analysis:svm}, we cover the performance of the SVMs on the trained font images as a result of cross-validation, and pick the optimal parameters for further testing. 
+
+In order to explain the results in detail, we choose to focus the results and analysis of the performance on a particular handwritten string containing the word -- \textbf{multivariate} which were obtained from Prof. Leslie Kaelbling's lecture notes.  We discuss several other test results in the conclusions (Section ~\ref{section:conclusion}).
 	
 	\subsection{Alphabet Character Recognition using SVMs}
 	\label{subsubsection:analysis:svm}
+	
+	\paragraph{Trained Parameters}
+	From varying the various parameters, we achieved the best results using a linear kernel with C=1, with a prediction rate of around 90\% when cross-validation was performed on all the trained font data. Using the radial basis function kernels gave poor results between 3\% -- 5\% recognition rate when varying $\gamma$. As such we made use of the linear kernel with penalty $C=10$ for all further testing.
 	
 	\begin{figure}[htbp!]
 	\centering
@@ -274,7 +277,10 @@ In this section, we desribe the experimental design which we undertook in order 
 	\label{figure:svm_result}
 	\end{figure}
 	
-	In Figure~\ref{figure:svm_result} above, the results shows the performance of the trained SVM classifier in recognizing characters in the word `multivariate'. For each character being guessed, we show the list of the top 10 matches based on their log-probabilities. As such, values which are larger (less negative) are more likely to be correct. For example, for the first guessed character `m', we have the guess `m' with almost zero log-probability. Compared to the other next candidates `x' and `X', we intepret this as being relatively more confident that the correct guess is `m'.  In the second guess `u',  we can see we are less confident about the whether it should be `v', 'y' or 'u'. 
+	\paragraph{Test Results}
+	We performed the test on the scanned image of the word `\textbf{multivariate}' obtained from Prof. Leslie Kaelbling's notes, and achieved a precision and recall rate of about 40\% using the SVMs.
+	
+	In Figure~\ref{figure:svm_result} the results shows the performance of the trained SVM classifier in recognizing characters in the word `multivariate'. For each character being guessed, we show the list of the top 10 matches based on their log-probabilities. As such, values which are larger (less negative) are more likely to be correct. For example, for the first guessed character `m', we have the guess `m' with almost zero log-probability. Compared to the other next candidates `x' and `X', we intepret this as being relatively more confident that the correct guess is `m'.  In the second guess `u',  we can see we are less confident about the whether it should be `v', 'y' or 'u'. 
 	
 	We note that for a majority of guesses, the correct character is usually within the top three candidates based on their log-probabilities. Thus, as we chose this is the reason why we elected to make use of the top 3 candidates for each guess to pass on to the combined predictor.
 	
