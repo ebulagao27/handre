@@ -41,7 +41,7 @@
 
 \begin{abstract}
 
-	In this report, we describe Handr\'{e}, a full-system implementation of an experimental approach to intelligent offline character/word recognition using support vector machines and dynamic time warping. Handr\'{e} is unique in that it attempts to use various computer font data to train machines instead of actual handwritten training data, to approximate handwriting recognition. Our system implements three large subsystems. (1) Image segmentation using a time series edge detection method, (2) character recognition using both support vector machines and K-means clustering using dynamic time warping, and (3) word recognition using spelling correction. Our system was tested on professor Leslie Kaelbling's handwritten lecture notes. Even though out system includes various novel and experimental ideas, and sub-optimally implemented in many areas due to lack of time and experience, our results showed reasonable accuracy and promise.
+	In this report, we describe Handr\'{e}, a full-system implementation of an experimental approach to intelligent offline character/word recognition using support vector machines and dynamic time warping. Handr\'{e} is unique in that it attempts to use various computer font data to train machines instead of actual handwritten training data, to approximate handwriting recognition. Our system implements three large subsystems. (1) Image segmentation using a time series edge detection method, (2) character recognition using both support vector machines and K-means clustering using dynamic time warping, and (3) word recognition using spelling correction. Our system was tested on Professor Leslie Kaelbling's handwritten lecture notes. Even though out system includes various novel and experimental ideas, and sub-optimally implemented in many areas due to lack of time and experience, our results showed reasonable accuracy and promise.
 	
 \end{abstract}
 
@@ -73,7 +73,7 @@
 		
 		In order to accurately segment lines and words, we adapted a time series edge detection method proposed to segment heartbeats to identify separating spaces between lines and words \cite{QRS}. This is done by first differentiating the time series and then doing a moving window integration, to discover the transition point separating the dense and sparsely colored regions. This generally resulted in more accurate results than simple pixel density analysis employed by most work.
 		
-		Figure~\ref{figure:word_segmentation} and Figure~\ref{figure:word_segmentation} shows the plot of processed time series derived from pixel density of a images and their resulting segmentation. These images were taken from screen-shots of professor Leslie Kaelbling's lecture notes.
+		Figure~\ref{figure:word_segmentation} and Figure~\ref{figure:word_segmentation} shows the plot of processed time series derived from pixel density of a images and their resulting segmentation. These images were taken from screen-shots of Professor Leslie Kaelbling's lecture notes.
 
 
 		\begin{figure}[htbp!]
@@ -266,7 +266,7 @@ In this section, we describe the experimental design which we undertook in order
 	
 	Following on our example from the previous section, we would have two potential guesses for the word -- `Rat' and `Rht'. In this case, if the spelling checker runs on the former, it would give a successful result and return, without a need to consider the second case. However, imagine the scenario that the resulting words were instead `Ret' and `Rat. In this case, the spelling checker would note that neither words exist, but attempt to propose a possible solution, which would be `Rat'. This provides an additional measure to contribute some form or prior knowledge into helping our classifiers make a classification, which both initially got wrong, eventually make a correct prediction.
 	
-	Because 'a' is part of the multi-cluster C1 and 'h' is part of the multi-cluster C5 introduced in section~\ref{subsection:experiments:dtw}, the spelling corrector would also check for possible spellings of 'Rqt' and 'Rnt'. However, because the corrector would already have returned with 'Rat' this path will not be taken in this example.	
+	Because `a' is part of the multi-cluster C1 and `h' is part of the multi-cluster C5 introduced in section~\ref{subsection:experiments:dtw}, the spelling corrector would also check for possible spellings of `Rqt' and `Rnt'. However, because the corrector would already have returned with `Rat' this path will not be taken in this example.	
 	
 \section{Results \& Analysis}
 \label{section:results}
@@ -395,7 +395,7 @@ In this section, we cover the performance of the system as described by the expe
 	\label{figure:comic_comp}
 	\end{figure}
 	
-	Figure~\ref{figure:number} shows an example sequence of digites extracted from professor Leslie Kaelbling's lecture notes. We trained both machines only using digit training data in this case, and the machine gave better results, only misclassifying less than one digit per ten. In the image in Figure~\ref{figure:number}, only the first 7 was misclassified as '1', because the digit '7' in our training examples did not include a strikethrough.
+	Figure~\ref{figure:number} shows an example sequence of digites extracted from Professor Leslie Kaelbling's lecture notes. We trained both machines only using digit training data in this case, and the machine gave better results, only misclassifying less than one digit per ten. In the image in Figure~\ref{figure:number}, only the first 7 was misclassified as '1', because the digit '7' in our training examples did not include a strikethrough.
 	
 	\begin{figure}[htbp!]
 	\centering
