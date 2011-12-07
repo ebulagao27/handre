@@ -41,7 +41,7 @@
 
 \begin{abstract}
 
-	In this report, we describe Handr\'{e}, a full-system implementation of an experimental approach to intelligent character/word recognition using support vector machines and dynamic time warping. Handr\'{e} is unique in that it attempts to use various computer font data instead of actual handwriting to approximate handwriting recognition. Our system implements three large subsystems. (1) Image segmentation using a time series edge detection method, (2) character recognition using both support vector machines and K-means clustering using dynamic time warping, and (3) word recognition using spelling correction. Our system was tested on professor Leslie Kaelbling's handwritten lecture notes. Even though out system includes various novel and experimental ideas, and suboptimally implemented in many areas due to lack of time and experience, our results showed resonable accuracy and promise.
+	In this report, we describe Handr\'{e}, a full-system implementation of an experimental approach to intelligent offline character/word recognition using support vector machines and dynamic time warping. Handr\'{e} is unique in that it attempts to use various computer font data instead of actual handwriting to approximate handwriting recognition. Our system implements three large subsystems. (1) Image segmentation using a time series edge detection method, (2) character recognition using both support vector machines and K-means clustering using dynamic time warping, and (3) word recognition using spelling correction. Our system was tested on professor Leslie Kaelbling's handwritten lecture notes. Even though out system includes various novel and experimental ideas, and suboptimally implemented in many areas due to lack of time and experience, our results showed resonable accuracy and promise.
 	
 \end{abstract}
 
@@ -50,7 +50,7 @@
 \newpage
 \section{Introduction}
 
-	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series edge detection method and pixel analysis to perform segmentation of the document invididual words and characters respectively. To perform individual character recognition, we used 2 different approaches -- a kernel-based support vector machine (SVM) classifier and a K-means clustering method using dynamic time-warping (DTW) which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
+	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. Although an immense amount of research has already been done in on-line character recognition\cite{Jianying, Tappert, Bahlmann, Tanaka, Yuan}, research on offline handwriting character recognition was hard to come by. This is strange because the amount of photographic data of handwritten characters available on the web can be intelligently used with such a technology. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series edge detection method and pixel analysis to perform segmentation of the document invididual words and characters respectively. To perform individual character recognition, we used 2 different approaches -- a kernel-based support vector machine (SVM) classifier and a K-means clustering method \cite{hartigan1979algorithm} using dynamic time-warping (DTW) \cite{Berndt_Clifford_1994} which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
 
 \subsection{Emphasis}
 	We emphasize the following multiple of Handr\'{e}'s unique characteristics.
@@ -71,7 +71,7 @@
 		\subsubsection{Time-series Segmentation}
 		A real-time edge detection method for times series was used to extract individual word images from a scanned image of a document. The image is first scanned vertically, constructing a time series consisting of the number of black pixels per vertical position. This information is analyzed to separate each lines into individual images. Each segmented line image is then scanned horizontally, constructing a time series. This is analyzed to segment individual words.
 		
-		In order to accurately segment lines and words, we adapted a time series edge detection method proposed to segment heartbeats to identify separating spaces between lines and words. This is done by first differentiating the time series and then doing a moving window integration, to discover the transition point separating the dense and sparsely colored regions. This generally resulted in more accurate results than simple pixel density analysis employed by most work.
+		In order to accurately segment lines and words, we adapted a time series edge detection method proposed to segment heartbeats to identify separating spaces between lines and words \cite{QRS}. This is done by first differentiating the time series and then doing a moving window integration, to discover the transition point separating the dense and sparsely colored regions. This generally resulted in more accurate results than simple pixel density analysis employed by most work.
 		
 		Figure~\ref{figure:word_segmentation} and Figure~\ref{figure:word_segmentation} shows the plot of processed time series derived from pixel density of a images and their resulting segmentation. These images were taken from screenshots of professor Leslie Kaelbling's lecture notes.
 
@@ -89,9 +89,7 @@
 		\label{figure:word_segmentation}
 		\caption{Word segmentation of an example line.}
 		\end{figure}
-		
 
-		
 		\subsubsection{Post-processing}
 		Because scanned handwritten documents contain many types of noise information such as underlines and shadows, a certain amount of post-processing on the segmented word image to obtain relatively clean character data. First, single pixel noise was eliminated by removing pixel 'islands', that existed by itself with only one or no neighboring pixels. Second, underlines were removed by picking the top one or two horizontal lines with a very high pixel density and removing each pixel from it, unless it had pixels above and below it. Third, strokes spilled over from lines above one in interest was removed, by scanning all pixels on the first row of the image and recursively filling all adjacent black pixels with white.
 		
@@ -138,7 +136,7 @@
 		\caption{euclidian distance and dynamic time warping}
 		\end{figure}
 	
-	\paragraph{Modified Dynamic Time Warping} We were unable to use multi-dimentional dynamic time warping for our goals, which is a common form of modified dynamic time warping used for image and texture analysis. Multi-dimentional dynamic time warping is done by taking the euclidian distance between each possible set of two rows, from both images and using dynamic time warping on it. However, this method could not be used because of two reasons. First, character sizes were often very different, making euclidian distance between rows not a very accurate measure. Second, it took a prohibitively long time.
+	\paragraph{Modified Dynamic Time Warping} We were unable to use multi-dimentional dynamic time warping for our goals, which is a common form of modified dynamic time warping used for image and texture analysis \cite{De_Mello_Gondra_2008}. Multi-dimentional dynamic time warping is done by taking the euclidian distance between each possible set of two rows, from both images and using dynamic time warping on it. However, this method could not be used because of two reasons. First, character sizes were often very different, making euclidian distance between rows not a very accurate measure. Second, it took a prohibitively long time.
 
 	\begin{figure}[htbp!]
 		\centering
@@ -471,7 +469,7 @@ In this section, we cover the performance of the system as described by the expe
 		\subsection{Font Samples}
 		\label{appendix:data:font}
 		
-		Figure~\ref{figure:fonts} show the example texts from the body of fonts we used to train our system. If we had used a wider variety of fonts and picked ones that matched handwriting more effectively, our prediction would have been more accurate.
+		Figure~\ref{figure:fonts} shows the example texts from a part of the body of fonts we used to train our system. If we had used a wider variety of fonts and picked ones that matched handwriting more effectively, our prediction would have been more accurate.
 
 	\begin{figure}[htbp!]
 	\centering
