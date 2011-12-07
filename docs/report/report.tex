@@ -151,7 +151,7 @@
 	\subsection{Spelling Correction Using Probalistic Dictionary Model}
 	\label{subsection:spellingcheck}
 	
-	In order to account for the K-means clusters with different labels explained in section~\ref{subsection:dtw} and increase the accuracy of the final predicted words, we implement a modified version of the spelling corrector introduced in Peter Norvig's web site(***). This implementation of the spelling corrector works by reading a large number of words from a corpus and comparing them with input. Its speed is very fast because it works by generating a small number of possible corrections and matching them against an indexed database of corpus words. The spelling corrector in our system serves two functions.
+	In order to account for the K-means clusters with different labels explained in section~\ref{subsection:dtw} and increase the accuracy of the final predicted words, we implement a modified version of the spelling corrector covered by Norvig~\cite{norvig}. This implementation of the spelling corrector works by reading a large number of words from a corpus and comparing them with input. Its speed is very fast because it works by generating a small number of possible corrections and matching them against an indexed database of corpus words. The spelling corrector in our system serves two functions.
 	
 	First, it corrects up to two mis-predicted characters in a predicted word. This is to increase the accuracy of predictions even with limited character recognition accuracy. If there are several possible matches, it first chooses the one with the least correct distance. If there is still a conflict, the one with the most occurrences in the corpus is chosen. Therefore, choosing a domain-specific corpus can improve accuracy. We used an entire body of words from a machine learning textbook as a corpus.
 	
@@ -364,8 +364,13 @@ In this section, we cover the performance of the system as described by the expe
 
 
 	
-	\subsection{Additional Experiments \& Results}
+	\subsection{Additional Results \& Experiments}
 	\label{subsection:results:additional}
+	
+	\paragraph{Additional Recognized words} Talk about the other words like Rather, update, etc. which were recognized here. 
+	
+	\paragraph{Extended Experiments}
+	
 	\paragraph{Testing on Image-captured Fonts}\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{comic_comp.eps}
@@ -374,8 +379,6 @@ In this section, we cover the performance of the system as described by the expe
 	\end{figure}
 	completely accurate
 	
-	
-	\paragraph{Testing on Numerical Digits}
 	\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{number.eps}
@@ -392,8 +395,6 @@ In this section, we cover the performance of the system as described by the expe
 	\caption{Handwritten text captured using webcam}
 	\label{figure:machine_camb}
 	\end{figure}
-	
-	\paragraph{Testing on Camera-captured Handwriting}
 	
 	\begin{figure}[htbp!]
 	\centering
@@ -487,8 +488,31 @@ In this section, we cover the performance of the system as described by the expe
 			\end{itemize}
 
 	\section{Division of Labor}
+	Reponsibilities of the members are outlined below. Our aim was to implement two different classification systems, one using SVMs and the other using DTWs, which were later combined for a final recognition step. This allowed a roughly equal division of labor whilst ensuring that both parties mutually were sharing information and results with one another.
 	
-\bibliography{air-presentation}	
+	\begin{itemize}
+		\item Sang Woo Jun
+			\begin{itemize}
+				\item .idx tool development
+				\item Implementation of Time-Series Word-Segmentation
+				\item feature-DTW implemtation
+				\item Spelling-corrector implementation
+			\end{itemize}
+			
+		\item Chong-U Lim
+			\begin{itemize}
+				\item Compiling font training data for SVMs
+				\item Training and tuning SVM parameters over:
+					\begin{itemize}
+						\item MNIST database of digits
+						\item Font characters for multiple fonts
+					\end{itemize}
+				\item Implementing merge strategy prediction tables for combined predictions
+			
+			\end{itemize}
+	\end{itemize}
+	
+\bibliography{report}	
 \bibliographystyle{unsrt}
 
 \end{document}
