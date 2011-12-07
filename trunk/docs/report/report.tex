@@ -53,7 +53,7 @@
 	Optical Character Recognition (OCR) is the term used to describe the process of recognizing scanned images of text from documents, which may be handwritten manuscripts or printed text. An extension to OCR is Intelligent Character Recognition (ICR), which involves additional processing and recognition techniques in order to improve the accuracy of translating such documents by performing recognition on the level of words as opposed to individual characters. In this paper, we present an experimental system to outline the process of performing recognition of an entire handwritten document. Our approach outlines the feasibility of performing word recognition without having to collect hand-written samples for training. We make use of a windowed time-series edge detection method and pixel analysis to perform segmentation of the document invididual words and characters respectively. To perform individual character recognition, we used 2 different approaches -- a kernel-based support vector machine (SVM) classifier and a K-means clustering method using dynamic time-warping (DTW) which were both trained using a database of TrueType fonts. We then perform a committee based process of combining results from both models together with a probablistic spelling checker in order to perform the word recognition. 
 
 \subsection{Emphasis}
-	We emphasize the following multiple of Handr\'{e} unique characteristics.
+	We emphasize the following multiple of Handr\'{e}'s unique characteristics.
 	
 	\paragraph{Feasibility of Font Training Data} We conduct exploratory work on using default computer fonts such as Verdana, Comic Sans MS, and handwriting-like fonts such as angelina and harrison to train our learning methods, instead of collecting a large corpus of handwritten characters for training. Results show that this is a feasible method
 	
@@ -61,7 +61,9 @@
 	
 	\paragraph{Full-System Approach} Instead of implementing a subset of a complete working system, we attempted to implement the entire system stack, up to the point where it was actually usable. Because there were multiple cross-checking functionality such as the committee based merging and spelling correction, we could obtain a certain level of utility even when some of the individual functionality was incomplete.
 	
-	\paragraph{Feature-dtw} The K-means clustering method goes through multiple, each a tree in a forest of less-accurate classifiers. The first classifier is a novel variant of multi-dimendional dynamic time warping named feature-dtw, which generates two 'feature' time series by scanning the pixel layout according to the dimensions, and adding the distance between the two pairs. This method almost always assures that the correct character is included in the top ten or so of possible characters, speeding up all subsequent classifiers by multiple orders of magnitude by reducing the problem space.
+	\paragraph{Feature-DTW} The K-means clustering method goes through multiple, each a tree in a forest of less-accurate classifiers. The first classifier is a novel variant of multi-dimendional dynamic time warping named feature-DTW, which generates two 'feature' time series by scanning the pixel layout according to the dimensions, and adding the distance between the two pairs. This method almost always assures that the correct character is included in the top ten or so of possible characters, speeding up all subsequent classifiers by multiple orders of magnitude by reducing the problem space.
+	
+	\paragraph{Training Data and Tools Contribution} We provide a repository of training data made from computer fonts, and tools to create and edit more,.
 
 \section{Segmentation}
 \label{section:segmentation}
@@ -71,7 +73,15 @@
 		
 		In order to accurately segment lines and words, we adapted a time series edge detection method proposed to segment heartbeats to identify separating spaces between lines and words. This is done by first differentiating the time series and then doing a moving window integration, to discover the transition point separating the dense and sparsely colored regions. This generally resulted in more accurate results than simple pixel density analysis employed by most work.
 		
-		Figure~\ref{figure:word_segmentation} shows the plot of a processed time series derived from pixel density of a single line image and its resulting word segmentation. This image was taken from a screenshot of one of professor Leslie Kaelbling's lecture notes.
+		Figure~\ref{figure:word_segmentation} and Figure~\ref{figure:word_segmentation} shows the plot of processed time series derived from pixel density of a images and their resulting segmentation. These images were taken from screenshots of professor Leslie Kaelbling's lecture notes.
+
+
+		\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.7\textwidth]{line_segmentation.eps}
+		\label{figure:line_segmentation}
+		\caption{Line segmentation of an example document.}
+		\end{figure}
 		
 		\begin{figure}[htbp!]
 		\centering
@@ -79,6 +89,8 @@
 		\label{figure:word_segmentation}
 		\caption{Word segmentation of an example line.}
 		\end{figure}
+		
+
 		
 		\subsubsection{Post-processing}
 		Because scanned handwritten documents contain many types of noise information such as underlines and shadows, a certain amount of post-processing on the segmented word image to obtain relatively clean character data. First, single pixel noise was eliminated by removing pixel 'islands', that existed by itself with only one or no neighboring pixels. Second, underlines were removed by picking the top one or two horizontal lines with a very high pixel density and removing each pixel from it, unless it had pixels above and below it. Third, strokes spilled over from lines above one in interest was removed, by scanning all pixels on the first row of the image and recursively filling all adjacent black pixels with white.
@@ -135,9 +147,9 @@
 		\caption{x and y features at position a and b}
 		\end{figure}
 		
-	Therefore, we developed a novel method of character distance metric called feature-dtw, which has not been used in previous works, to the best of our knowledge. This method first generates two feature time series per character image, \textit{xfeature} and \textit{yfeature}, which are time series consisting of the number of pixel lumps that exists on that particular row or column. For example, in Figure~\ref{figure:xyfeatures}, the item in xfeature at index a would be 1, and the item in yfeature at index b would be 3. This feature series can be expected to have enough information in them, so when dynamic time warping is used on them, they can give a close approximation to the level of difference between two characters.
+	Therefore, we developed a novel method of character distance metric called feature-DTW, which has not been used in previous works, to the best of our knowledge. This method first generates two feature time series per character image, \textit{xfeature} and \textit{yfeature}, which are time series consisting of the number of pixel lumps that exists on that particular row or column. For example, in Figure~\ref{figure:xyfeatures}, the item in xfeature at index a would be 1, and the item in yfeature at index b would be 3. This feature series can be expected to have enough information in them, so when dynamic time warping is used on them, they can give a close approximation to the level of difference between two characters.
 	
-	Because feature-dtw is not completely accurate, it is only used as the first tree in a forest of classifiers, to first prune the problem space by taking the top 10 or so of most likely characters. Feature-dtw can often mistake some different characters to have the same features, depending on the tilt or shape of the characters. So after taking the top 10 or so of most likely characters from feature-dtw, traditional multi-dimentional dynamic time warping is used to actually classify the character.
+	Because feature-DTW is not completely accurate, it is only used as the first tree in a forest of classifiers, to first prune the problem space by taking the top 10 or so of most likely characters. Feature-DTW can often mistake some different characters to have the same features, depending on the tilt or shape of the characters. So after taking the top 10 or so of most likely characters from feature-DTW, traditional multi-dimentional dynamic time warping is used to actually classify the character.
 	
 	\paragraph {Modified K-means clustering} Because the level of difference between characters differ by lot, the default method of K-means clustering yielded multiple clusters with different characters in the same cluster, or with the same character split among different clusters. Therefore, we modified the K-means method to fit better into our ICR interface by picking character instances from different computer fonts that approximately separated the characters as much as possible, and using it as a 62-means cluster (26 + 26 upper- and lowercase letters and 10 digits).
 	
@@ -145,7 +157,7 @@
 
 	\subsection{Combining Approaches for Word Recognition}
 	\label{subsection:combined}
-	We can improve the results of performing a classification task by including the results from a group of classifiers, as opposed to a single one. This is often termed as a \textit{committee}. We look to implement a form of committee-based decision by making use of the results from both the SVMs and feature-dtw methods when attempting to perform recognition on a character. In essence, each classificaton system will present a list of possible classification labels for a given input character, and by selectively pruning the sets into smaller subset, we hope to make a better informed decision on the classification. The exact process in which this is performed, along with the selection criteria and merging rules are both covered in Section~\ref{subsection:experiments:combinedchar}.
+	We can improve the results of performing a classification task by including the results from a group of classifiers, as opposed to a single one. This is often termed as a \textit{committee}. We look to implement a form of committee-based decision by making use of the results from both the SVMs and feature-DTW methods when attempting to perform recognition on a character. In essence, each classificaton system will present a list of possible classification labels for a given input character, and by selectively pruning the sets into smaller subset, we hope to make a better informed decision on the classification. The exact process in which this is performed, along with the selection criteria and merging rules are both covered in Section~\ref{subsection:experiments:combinedchar}.
 
 
 	\subsection{Spelling Correction Using Probalistic Dictionary Model}
@@ -367,17 +379,25 @@ In this section, we cover the performance of the system as described by the expe
 	\subsection{Additional Results \& Experiments}
 	\label{subsection:results:additional}
 	
-	\paragraph{Additional Recognized words} Talk about the other words like Rather, update, etc. which were recognized here. 
+	\paragraph{Additional Recognized words} Figure~\ref{figure:examples} includes some of the test images we used to verify our system, and were recognized correctly after spelling correction. Although we did not have enough time to conduct a thorough experiment to quantitatively demonstrate the accuracy of our system, we have verified that the system correctly recognizes many of the scanned words. The word images that were not easily recognized include cases where (1) the character recognition gave more incorrect characters than the spelling corrector can handle, or (2) the multi-cluster permutations included other words that are more relevant than the actual word.
 	
-	\paragraph{Extended Experiments}
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{examples.eps}
+	\caption{Examples of other tested words}
+	\label{figure:examples}
+	\end{figure}
 	
-	\paragraph{Testing on Image-captured Fonts}\begin{figure}[htbp!]
+	\paragraph{Extended Experiments} In order to further demonstrate the validity of our approach, we conducted some experiments on limited enviroment word recognition tasks. Figure~\ref{figure:comic_comp} shows an example image of a slightly distorted computer generated word image. The recognition of computer generated images were generally very good, and for the example image in Figure~\ref{figure:comic_comp}, the combined results were already correct even before spelling correction. 
+	
+	\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{comic_comp.eps}
 	\caption{Computer-generated testing data}
 	\label{figure:comic_comp}
 	\end{figure}
-	completely accurate
+	
+	Figure~\ref{figure:number} shows an example sequence of digites extracted from professor Leslie Kaelbling's lecture notes. We trained both machines only using digit training data in this case, and the machine gave better results, only misclassifying less than one digit per ten. In the image in Figure~\ref{figure:number}, only the first 7 was misclassified as '1', because the digit '7' in our training examples did not include a strikethrough.
 	
 	\begin{figure}[htbp!]
 	\centering
@@ -385,8 +405,8 @@ In this section, we cover the performance of the system as described by the expe
 	\caption{Testing data of digits}
 	\label{figure:number}
 	\end{figure}
-	first 7 and second 3 was each recognized as 1 and 5.
-	Important because spelling correction cannot be applied to digits
+	
+	\paragraph{Testing on Image-captured Fonts} As character recognition from photographs is a major application of offline ICRs, we have also experimented on word recognition from photographs of handwritten characters. Figure~\ref{figure:machine_camb} is a photograph of a handwritten word on a piece of white paper. Figure~\ref{figure:machine_cam} shows the same image after some preprocesing, where only pixels darker than a certain threshold is kept. Given Figure~\ref{figure:machine_cam} as input, the combined character recognizer recognized the image as 'mqchinc', which the spelling corrector corrected to 'machine' which is zero edit distances away, as it is one of the permutations possible from multi-clusters.
 	
 	
 	\begin{figure}[htbp!]
@@ -402,15 +422,9 @@ In this section, we cover the performance of the system as described by the expe
 	\caption{Preprocessed handwritten text}
 	\label{figure:machine_cam}
 	\end{figure}
-	got 'mqchinc' on top
 	
 \section{Conclusions \& Future Work}
 \label{section:conclusion}
-	\subsection{Contributions}
-	Contributed repository of training fonts as well as app to do it.
-	Exhibited Feasibility of using Fonts as training data for SVMs.
-	Showed positive results for combining different predictors.
-	Novel feature-DTW approach for recognition.
 	
 	\subsection{Conclusions}
 	In this project, we have tackled the end-to-end problem of performing recognition on an actual handwritten document. We described our approach to word-segmentation using a time-series approach which successfully separated an actual scanned document into segments of words or groups of words. Next, we investigated and successfully showed the possibility of performing OCR on handwritten text without first having to train on the actual user's handwriting by training SVMs on a database of fonts. The trained SVMs performed well on the training data with approximately 90\% accuracy, gave approximately 40\% precision rates on several samples of handwritten characters. We also devise a new approach to building a classifier using our feature-DTW method which was shown to have positive results. We showcased the possibility of combining both systems together with a policy of picking a subset of possibilities ordered by the confidence of the classifer on its target. This was used together with an implemented spelling corrector to successful recognize a 12-character long handwritten string. 
@@ -425,7 +439,7 @@ In this section, we cover the performance of the system as described by the expe
 
 \appendix
 	\section{Data \& Results}
-		\subsection{SVM Training \& Testin}
+		\subsection{SVM Training \& Testing}
 		
 		\subsubsection{Confusion Matrix}
 		\label{appendix:confusion}
@@ -456,6 +470,18 @@ In this section, we cover the performance of the system as described by the expe
 
 		\subsection{Font Samples}
 		\label{appendix:data:font}
+		
+		Figure~\ref{figure:fonts} show the example texts from the body of fonts we used to train our system. If we had used a wider variety of fonts and picked ones that matched handwriting more effectively, our prediction would have been more accurate.
+
+	\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{fonts.eps}
+	\caption{Body of fonts used for our system}
+	\label{figure:fonts}
+	\end{figure}
+
+
+
 	\section{Project Timeline}
 		\subsection*{Week 1: 10/28 -- 11/5 }
 			\begin{itemize}
