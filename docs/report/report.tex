@@ -260,9 +260,7 @@ In this section, we desribe the experimental design which we undertook in order 
 	
 \section{Results \& Analysis}
 \label{section:results}
-In this section, we cover the performance of the system as described by the experimental. In Section~\ref{subsubsection:analysis:svm}, we cover the performance of the SVMs on the trained font images as a result of cross-validation, and pick the optimal parameters for further testing. 
-
-In order to explain the results in detail, we choose to focus the results and analysis of the performance on a particular handwritten string containing the word -- \textbf{multivariate} which were obtained from Prof. Leslie Kaelbling's lecture notes.  We discuss several other test results in the conclusions (Section ~\ref{section:conclusion}).
+In this section, we cover the performance of the system as described by the experimental. In Section~\ref{subsubsection:analysis:svm}, we cover the performance of the SVMs on the trained font images as a result of cross-validation, and pick the optimal parameters for further testing. In order to explain the results in detail, we choose to focus the results and analysis of the performance on a particular handwritten string containing the word -- \textbf{multivariate} which were obtained from Prof. Leslie Kaelbling's lecture notes.  We discuss several other test results based on this and various other experiments in the (Section ~\ref{subsection:results:additional}).
 	
 	\subsection{Alphabet Character Recognition using SVMs}
 	\label{subsubsection:analysis:svm}
@@ -277,12 +275,8 @@ In order to explain the results in detail, we choose to focus the results and an
 	\label{figure:svm_result}
 	\end{figure}
 	
-	\paragraph{Test Results}
-	We performed the test on the scanned image of the word `\textbf{multivariate}' obtained from Prof. Leslie Kaelbling's notes, and achieved a precision and recall rate of about 40\% using the SVMs.
-	
-	In Figure~\ref{figure:svm_result} the results shows the performance of the trained SVM classifier in recognizing characters in the word `multivariate'. For each character being guessed, we show the list of the top 10 matches based on their log-probabilities. As such, values which are larger (less negative) are more likely to be correct. For example, for the first guessed character `m', we have the guess `m' with almost zero log-probability. Compared to the other next candidates `x' and `X', we intepret this as being relatively more confident that the correct guess is `m'.  In the second guess `u',  we can see we are less confident about the whether it should be `v', 'y' or 'u'. 
-	
-	We note that for a majority of guesses, the correct character is usually within the top three candidates based on their log-probabilities. Thus, as we chose this is the reason why we elected to make use of the top 3 candidates for each guess to pass on to the combined predictor.
+	\
+	We performed the test on the scanned image of the word `\textbf{multivariate}' obtained from Prof. Leslie Kaelbling's notes, and achieved a precision and recall rate of about 40\% using the SVMs. The confusion matrix of this test can be found in Table~\ref{table:svm_confusion} of the Appendix~\ref{appendix:confusion}	Figure~\ref{figure:svm_result} shows the results shows the performance of the trained SVM classifier in recognizing characters in the word `multivariate'. For each character being guessed, we show the list of the top 10 matches based on their log-probabilities. As such, values which are larger (less negative) are more likely to be correct. For example, for the first guessed character `m', we have the guess `m' with almost zero log-probability. Compared to the other next candidates `x' and `X', we intepret this as being relatively more confident that the correct guess is `m'.  In the second guess `u',  we can see we are less confident about the whether it should be `v', 'y' or 'u'. We note that for a majority of guesses, the correct character is usually within the top three candidates based on their log-probabilities. Thus, as we chose this is the reason why we elected to make use of the top 3 candidates for each guess to pass on to the combined predictor.
 	
 	\subsection{K-means Clustering using DTW}
 	
@@ -371,7 +365,7 @@ In order to explain the results in detail, we choose to focus the results and an
 
 	
 	\subsection{Additional Experiments \& Results}
-	
+	\label{subsection:results:additional}
 	\paragraph{Testing on Image-captured Fonts}\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.5\textwidth]{comic_comp.eps}
@@ -431,6 +425,7 @@ In order to explain the results in detail, we choose to focus the results and an
 		\subsection{SVM Training \& Testin}
 		
 		\subsubsection{Confusion Matrix}
+		\label{appendix:confusion}
 			\begin{table}[h!]
 \begin{center}	
 \begin{tabular}[c]{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -452,7 +447,7 @@ In order to explain the results in detail, we choose to focus the results and an
   v & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
 \end{tabular}
 \caption{Confusion matrix of prediction on `multivariate'}
- \label{table:svm_}
+ \label{table:svm_confusion}
 \end{center}
 \end{table}
 
